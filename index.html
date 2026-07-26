@@ -2,361 +2,618 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Генеалогия первых трёх поколений хасидизма</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-:root{
-  --bg:#f4f6f9; --card:#ffffff; --text:#2c3e50; --muted:#7b8794; --line:#e3e8ee;
-}
-html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.4;}
-#app{max-width:1500px;margin:0 auto;}
-.hdr{padding:22px 20px 10px;}
-.hdr h1{font-size:24px;font-weight:700;letter-spacing:-.2px;}
-.hdr .sub{color:var(--muted);font-size:13px;margin-top:6px;max-width:900px;}
-.infoToggle{margin-top:10px;background:#eef2f7;border:1px solid var(--line);color:#516170;border-radius:16px;padding:5px 12px;font-size:12.5px;cursor:pointer;}
-.infoToggle:hover{background:#e6ecf3;}
-.infoBox{display:none;margin-top:10px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;max-width:960px;font-size:13px;color:#3d4a58;}
-.infoBox.show{display:block;}
-.infoBox p{margin:0 0 9px;} .infoBox p:last-child{margin-bottom:0;}
-.infoBox .ib{display:inline-block;width:17px;height:17px;line-height:17px;border-radius:50%;color:#fff;text-align:center;font-size:11px;font-weight:700;vertical-align:middle;}
-.infoBox .ib.out{background:#fff;color:#adb5bd;border:1.5px solid #ced4da;line-height:14px;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#F2F2F7;color:#000;font-family:-apple-system,"SF Pro Text",system-ui,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+#app{max-width:1400px;margin:0 auto}
+button{font-family:inherit}a{color:inherit}
+:focus-visible{outline:2px solid #007AFF;outline-offset:1px}
 
-.controls{position:sticky;top:0;z-index:20;background:rgba(244,246,249,.94);backdrop-filter:blur(4px);border-bottom:1px solid var(--line);padding:10px 20px;display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;}
-.legend{display:flex;flex-wrap:wrap;gap:6px;}
-.chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:4px 10px;font-size:12px;color:#516170;cursor:pointer;user-select:none;transition:.15s;}
-.chip .sw{width:11px;height:11px;border-radius:3px;display:inline-block;}
-.chip:not(.on){opacity:.4;filter:grayscale(1);}
-.ctl-right{display:flex;align-items:center;gap:12px;}
-.search{border:1px solid var(--line);border-radius:16px;padding:6px 12px;font-size:13px;min-width:180px;background:#fff;color:var(--text);}
-.allWrap{font-size:12.5px;color:#516170;display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap;}
+.nav{position:sticky;top:0;z-index:80;background:rgba(242,242,247,.94);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid rgba(60,60,67,.29);padding:10px 16px}
+.titlerow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.title{font-size:28px;font-weight:700;letter-spacing:-.022em}
+.wide .title{font-size:22px}
+.submeta{font-size:13px;color:rgba(60,60,67,.6);margin-top:3px;font-variant-numeric:tabular-nums}
+.search{width:100%;margin-top:8px;height:36px;border:none;border-radius:10px;background:rgba(118,118,128,.12);padding:0 12px;font-size:17px;color:#000;-webkit-appearance:none}
+.wide .search{width:220px;height:30px;font-size:13px;margin:0}
+.tools{display:flex;align-items:center;gap:8px}
+.toolbtn{height:30px;border:none;border-radius:8px;background:rgba(118,118,128,.12);color:#007AFF;font-size:13px;padding:0 12px;cursor:pointer;white-space:nowrap}
+.toolbtn.on{background:#007AFF;color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;border:none;border-radius:16px;background:rgba(118,118,128,.12);padding:0 10px;font-size:13px;color:#000;cursor:pointer}
+.chip.offc{color:rgba(60,60,67,.35)}
+.chdot{width:8px;height:8px;border-radius:50%}
+.chcnt{color:rgba(60,60,67,.4);font-variant-numeric:tabular-nums}
+.seg{display:flex;gap:2px;background:rgba(118,118,128,.12);border-radius:9px;padding:2px;margin-top:10px}
+.wide .seg{width:300px}
+.segbtn{flex:1;height:28px;border:none;border-radius:7px;background:transparent;font-size:13px;font-weight:600;color:#000;cursor:pointer}
+.segbtn.active{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.1)}
 
-.stage{position:relative;overflow:auto;padding:6px 20px 40px;}
-svg.edges{position:absolute;top:6px;left:20px;pointer-events:none;z-index:1;overflow:visible;}
-.map{position:relative;z-index:2;}
-.band{margin:18px 0 6px;}
-.band-title{font-size:13px;font-weight:700;color:#516170;text-transform:uppercase;letter-spacing:.4px;padding:6px 0 10px 12px;border-left:4px solid #ccd3db;margin-bottom:8px;}
-.band-grid{display:flex;flex-wrap:wrap;gap:12px;}
+.card{position:relative;background:#fff;border:1px solid rgba(60,60,67,.06);border-left:3px solid #888;border-radius:12px;padding:12px 14px;box-shadow:0 1px 2px rgba(0,0,0,.05);cursor:pointer;transition:box-shadow .15s,opacity .15s}
+.wide .card{border-radius:10px;padding:9px 11px;width:100%}
+.chead{display:flex;align-items:baseline;gap:6px}
+.cname{font-weight:600;font-size:17px;letter-spacing:-.015em;flex:1;line-height:1.22;overflow-wrap:break-word;word-break:normal;hyphens:none}
+.wide .cname{font-size:15px;letter-spacing:-.012em}
+.cflag{color:#C7361E;font-size:13px;font-weight:600;flex:0 0 auto}
+.chev{color:rgba(60,60,67,.3);font-size:17px;flex:0 0 auto}
+.cyear{color:rgba(60,60,67,.6);font-size:13px;font-variant-numeric:tabular-nums;flex:0 0 auto}
+.wide .cyear{font-size:12px}
+.dots{display:flex;gap:4px;margin-left:auto;align-items:center;flex:0 0 auto}
+.dot{width:6px;height:6px;border-radius:50%;border:1px solid transparent;box-sizing:border-box}
+.wide .dot{width:5px;height:5px}
+.cbranch{margin-top:6px}
+.btag{display:inline-flex;align-items:center;gap:5px}
+.bdot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:0 0 auto}
+.btxt{font-size:12px;color:rgba(60,60,67,.5)}
+.cmuv{margin-top:9px;padding-top:9px;border-top:.5px solid rgba(60,60,67,.18);display:flex;gap:6px;align-items:baseline;flex-wrap:wrap}
+.mlbl{font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:rgba(60,60,67,.4);flex:0 0 auto}
+.mval{font-size:13px;color:#000}
+.mval.dim{color:rgba(60,60,67,.4)}
+.calso{margin-top:8px}
+.microlbl{font-size:11px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:rgba(60,60,67,.4);margin:8px 0 6px}
+.pillrow{display:flex;flex-wrap:wrap;gap:8px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:rgba(118,118,128,.1);border:none;border-radius:10px;min-height:32px;padding:0 12px;font-size:13px;color:#000;cursor:pointer;text-align:left}
+.pdot{width:7px;height:7px;border-radius:50%;flex:0 0 auto}
+.prel{color:rgba(60,60,67,.5);font-size:12px}
+.cexp{margin-top:9px;padding-top:9px;border-top:.5px solid rgba(60,60,67,.18)}
+.che{font-family:ui-serif,"New York","Frank Ruhl Libre","Times New Roman",serif;font-size:20px;text-align:right;line-height:1.35;direction:rtl;unicode-bidi:isolate}
+.cgist{font-size:15px;color:rgba(60,60,67,.85);margin-top:6px;line-height:1.4}
+.cnote{font-size:13px;color:#C7361E;margin-top:6px;line-height:1.35}
+.srcrow{display:flex;align-items:center;gap:10px;min-height:44px;border-top:.5px solid rgba(60,60,67,.18);text-decoration:none;color:inherit}
+.sbadge{width:22px;height:22px;border-radius:5px;border:1px solid;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex:0 0 auto}
+.sname{font-size:15px;color:#000}
+.sstat{font-size:13px;color:rgba(60,60,67,.6);margin-left:auto}
+.card.sel{box-shadow:0 0 0 2px #007AFF,0 8px 22px rgba(0,0,0,.1)}
+.card.dim{opacity:.16}
 
-.node{width:236px;background:var(--card);border:1px solid var(--line);border-left:5px solid #888;border-radius:9px;padding:11px 12px 10px;box-shadow:0 1px 3px rgba(20,40,70,.06);cursor:pointer;position:relative;transition:box-shadow .15s,transform .15s,opacity .15s;}
-.node:hover{box-shadow:0 4px 14px rgba(20,40,70,.14);transform:translateY(-1px);}
-.node-head{display:flex;flex-direction:column;gap:1px;}
-.node-title{font-size:14px;font-weight:700;line-height:1.25;padding-right:20px;}
-.node-he{font-size:12px;color:var(--muted);direction:rtl;unicode-bidi:isolate;}
-.node-meta{font-size:11.5px;color:var(--muted);margin:5px 0 7px;}
-.tl{font-size:11.5px;margin:2px 0;color:#40505f;}
-.tl .tlk{color:#8a97a4;font-weight:600;}
-.tl.sec,.tl.fam{color:#8794a1;}
-.tl.fam{font-style:italic;}
-.tl.root{color:#b8860b;font-weight:600;font-style:italic;}
-.disp{color:#d35400;cursor:help;}
-.badges{display:flex;gap:5px;margin-top:8px;}
-.bdg{width:18px;height:18px;line-height:18px;border-radius:50%;color:#fff;font-size:11px;font-weight:700;text-align:center;text-decoration:none;display:inline-block;border:1.5px solid transparent;}
-.bdg.out{background:#fff!important;color:#adb5bd;border-color:#ced4da;}
-.noteBtn{position:absolute;top:9px;right:10px;width:18px;height:18px;border-radius:50%;border:none;background:#ffe08a;color:#8a6d00;font-weight:800;font-size:12px;cursor:pointer;line-height:18px;}
-.node-note{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:11.5px;color:#5a6875;}
-.node.open .node-note{display:block;}
+.popover{position:absolute;z-index:60;background:#fff;border:1px solid rgba(60,60,67,.08);border-left:3px solid #888;border-radius:12px;padding:10px 12px;box-shadow:0 10px 30px rgba(0,0,0,.14);pointer-events:none}
 
-.node.sel{box-shadow:0 0 0 3px #2c3e50,0 6px 18px rgba(20,40,70,.2);}
-.node.rel-teacher{box-shadow:0 0 0 2px #2980b9;}
-.node.rel-student{box-shadow:0 0 0 2px #1e7e34;}
-.node.dim{opacity:.32;}
-.node.hidden{display:none;}
+.mwrap{padding:12px 16px 80px}
+.mwrap>.card,.mwrap .trow{margin-bottom:10px}
+.trow{position:relative}
+.rail{position:absolute;top:0;bottom:0;width:1.5px}
+.genhdr{display:flex;align-items:baseline;gap:8px;padding:16px 0 8px;border-bottom:.5px solid rgba(60,60,67,.18);margin-bottom:8px}
+.ghn{font-size:15px;font-weight:600}
+.ghmeta{font-size:13px;color:rgba(60,60,67,.6)}
+.ghcnt{margin-left:auto;color:rgba(60,60,67,.35);font-variant-numeric:tabular-nums}
+.brhdr{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:rgba(60,60,67,.6);padding:8px 4px 6px}
 
-.ftr{padding:16px 20px 30px;font-size:11.5px;color:var(--muted);}
-.ftr a{color:#516170;}
-@media(max-width:600px){.node{width:100%;}.hdr h1{font-size:20px;}}
+.stage{position:relative;overflow:auto;padding:10px 20px 80px}
+svg.edges{position:absolute;top:10px;left:20px;pointer-events:none;z-index:0;overflow:visible}
+.rowsgrid{position:relative;z-index:1}
+.genrow{display:flex;gap:12px;margin-bottom:28px}
+.genlabel{width:108px;flex:0 0 108px}
+.gln{font-size:15px;font-weight:600}
+.gllabel{font-size:13px;color:rgba(60,60,67,.6);margin-top:2px}
+.glmeta{font-size:12px;color:rgba(60,60,67,.4);margin-top:2px;font-variant-numeric:tabular-nums}
+.genbody{display:flex;flex-wrap:wrap;gap:18px;flex:1;align-content:flex-start}
+.subcol{width:228px}
+.subhdr{display:flex;align-items:center;gap:6px;padding-bottom:6px;border-bottom:.5px solid rgba(60,60,67,.18);margin-bottom:9px}
+.subttl{font-size:12px;font-weight:500;color:rgba(60,60,67,.6)}
+.subcnt{margin-left:auto;font-size:12px;color:rgba(60,60,67,.35);font-variant-numeric:tabular-nums}
+.subcol .card{margin-bottom:9px}
+.laneswrap{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.lane{width:220px}
+.lanehdr{display:flex;align-items:center;gap:6px;border-bottom:2px solid #888;padding-bottom:6px;margin-bottom:8px}
+.lanettl{font-size:13px;font-weight:600}
+.laneband{margin-bottom:8px;padding-bottom:8px;border-bottom:.5px dashed rgba(60,60,67,.25)}
+.laneband .card{margin-bottom:8px}
+
+.ovwrap{padding:8px 12px 40px;position:relative}
+.ovbox{position:relative}
+.ovsvg{width:100%;height:auto;display:block}
+.ovlabels{position:absolute;inset:0;pointer-events:none}
+.genlab{position:absolute;transform:translate(-50%,-100%);font-size:13px;font-weight:600;color:rgba(60,60,67,.5)}
+.hublab{position:absolute;transform:translate(-50%,-100%);font-size:11.5px;font-weight:600;color:rgba(60,60,67,.85);white-space:nowrap}
+.ovpanel{position:sticky;bottom:12px;margin:12px 4px;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-radius:14px;border-left:3px solid #888;box-shadow:0 8px 26px rgba(0,0,0,.14);padding:12px 14px}
+.oprow{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.opname{font-size:17px;font-weight:600}
+.opyear{font-size:13px;color:rgba(60,60,67,.6);font-variant-numeric:tabular-nums}
+.ovpanel .cmuv{border-top:none;padding-top:6px;margin-top:6px}
+.ovpanel .btag{margin-top:6px}
+.opbtns{display:flex;gap:8px;margin-top:10px}
+.opopen{flex:1;height:40px;border:none;border-radius:10px;background:#007AFF;color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.opclose{width:40px;height:40px;border:none;border-radius:10px;background:rgba(118,118,128,.12);color:#007AFF;font-size:16px;cursor:pointer}
+.hint{padding:10px 20px 30px;font-size:12px;color:rgba(60,60,67,.5)}
 </style>
 </head>
 <body>
 <div id="app"></div>
-<script>var BRANCHES={"founder":{"ru":"Основатель","color":"#b8860b"},"core":{"ru":"Круг Бешта / Межерич","color":"#34495e"},"volhynia":{"ru":"Волынь (Злочов/Корец/Полонное)","color":"#7f8c8d"},"galicia":{"ru":"Польша–Галиция","color":"#2980b9"},"hungary":{"ru":"Никольсбург/Франкфурт (Моравия)","color":"#27ae60"},"chabad":{"ru":"Хабад / Рейсин","color":"#8e44ad"},"chernobyl":{"ru":"Чернобыль / Украина","color":"#c0392b"},"karlin":{"ru":"Карлин–Столин (Литва)","color":"#f39c12"},"ruzhin":{"ru":"Ружин","color":"#d35400"},"bratslav":{"ru":"Брацлав","color":"#16a085"}};
-var NODES=[{"id":"besht","gen":1,"branch":"founder","ru":"Баал Шем Тов (Бешт)","he":"ישראל בן אליעזר (הבעל שם טוב)","years":"~1698–1760","known":"Основатель хасидизма, Меджибож","teachers":[],"role":"Родоначальник движения; у него нет человеческого учителя-хасида","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/הבעל_שם_טוב"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/הבעל_שם_טוב"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_ישראל_בעל_שם_טוב"}},"note":""},{"id":"maggid_mezritch","gen":1,"branch":"core","ru":"Дов Бер, Магид из Межерича","he":"דוב בער ממזריטש","years":"~1704–1772","known":"Главный преемник Бешта; воспитал ядро 2-го поколения","teachers":[{"t":"besht","k":"main"}],"role":"Организатор движения; книга «Магид дварав ле-Яаков»","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/המגיד_ממזריטש"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/המגיד_ממזריטש"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/המגיד_ממזריטש"}},"note":""},{"id":"yaakov_yosef_polonne","gen":1,"branch":"volhynia","ru":"Яаков Йосеф из Полонного","he":"יעקב יוסף מפולנאה","years":"~1710–1784","known":"«Толдот Яаков Йосеф» — первая печатная хасидская книга (1780)","teachers":[{"t":"besht","k":"main"}],"role":"Ближайший ученик и летописец Бешта; двора/учеников почти не оставил","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/יעקב_יוסף_כ\"ץ"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/יעקב_יוסף_כ\"ץ"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_יעקב_יוסף_כ\"ץ"}},"note":"Год смерти: 1782/83/84 по разным источникам"},{"id":"pinchas_koretz","gen":1,"branch":"volhynia","ru":"Пинхас Шапиро из Корца","he":"פנחס שפירא מקוריץ","years":"1726–1791","known":"«Имрей Пинхас»; следовал за Бештом напрямую, не через Магида","teachers":[{"t":"besht","k":"main"},{"t":"maggid_mezritch","k":"sec"}],"role":"Ученик/самостоятельный соратник Бешта","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/פנחס_שפירא_מקוריץ"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/פנחס_מקוריץ"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_פנחס_שפירא_מקוריץ"}},"note":"he.wiki (прочитано): רבותיו — Бешт и Магид; в тексте «из старших/близких учеников Бешта, вместе с Магидом, Полонным, Злочовером». Категория «תלמידי הבעש\"ט». Прямое ученичество у Бешта подтверждено."},{"id":"nachman_horodenka","gen":1,"branch":"bratslav","ru":"Нахман из Городенки","he":"נחמן מהורדנקא","years":"~1680–1765","known":"Один из первых учеников Бешта; совершил алию (Тверия)","teachers":[{"t":"besht","k":"main"}],"role":"Дед р. Нахмана из Брацлава по отцовской линии","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/נחמן_מהורדנקא"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/נחמן_מהורדנקא"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_נחמן_מהורדנקא"}},"note":""},{"id":"yechiel_michel_zlotchov","gen":1,"branch":"volhynia","ru":"Йехиэль Михл, Магид из Злочова","he":"יחיאל מיכל מזלוטשוב","years":"~1721–1786","known":"Мост между кругом Бешта и учениками Магида; распространитель в Галиции","teachers":[{"t":"besht","k":"main"},{"t":"maggid_mezritch","k":"main"},{"t":"yitzchak_drohobych","k":"fam","d":false}],"role":"Пять сыновей-цадиков; глава круга учеников","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/יחיאל_מיכל_מזלוטשוב"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/יחיאל_מיכל_מזלוטשוב"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_יחיאל_מיכל_מזלוטשוב"}},"note":"Пограничная фигура 1/2 поколения: ученик и Бешта, и Магида. Годы жизни варьируются (1721/1725/1726–1781/1786)"},{"id":"aryeh_leib_mochiach","gen":1,"branch":"core","ru":"Арье Лейб, Мохиах из Полонного","he":"אריה יהודה לייב המוכיח","years":"?–1770","known":"Странствующий проповедник-обличитель; «Коль Арье»","teachers":[{"t":"besht","k":"main"}],"role":"Один из самых ранних последователей Бешта","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/יהודה_לייב_מפולנאה"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Не путать с Яаковом Йосефом из Полонного. Разночтение имени Арье/Йехуда Лейб"},{"id":"meir_margolies","gen":1,"branch":"core","ru":"Меир Маргалиот","he":"מאיר מרגליות","years":"~1707–1790","known":"Ученик Бешта и официальный раввин-галахист; «Меир Нетивим»","teachers":[{"t":"besht","k":"main"}],"role":"Мост между хасидизмом и раввинским истеблишментом","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/מאיר_מרגליות"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/מאיר_מרגליות"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_מאיר_מרגליות"}},"note":""},{"id":"nachman_kosov","gen":1,"branch":"core","ru":"Нахман из Косова","he":"נחמן מקוסוב","years":"1716–1741/1756","known":"Каббалист круга Кут; пионер молитвы по нусаху Ари","teachers":[{"t":"besht","k":"main"}],"role":"Старший современник/ассоциат Бешта, а не формальный ученик","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/נחמן_מקוסוב"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"he.wiki (прочитано): «ученик Бешта»; сначала был среди его противников, затем сблизился и вошёл в круг учеников. Дядя Аарона Великого из Карлина."},{"id":"avraham_gershon_kitov","gen":1,"branch":"core","ru":"Авраам Гершон из Китова","he":"אברהם גרשון מקיטוב","years":"~1701–1761","known":"Шурин Бешта и его ученик; алия в Эрец-Исраэль (1747)","teachers":[{"t":"besht","k":"main"},{"t":"rashash","k":"sec"}],"role":"Родственник (гис) и ученик; каббалист круга Бейт-Эль","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/אברהם_גרשון_מקיטוב"},"chabadpedia":{"s":"read","url":"https://chabadpedia.co.il/index.php/אברהם_גרשון_מקיטוב_(גיס_הבעל_שם_טוב)"},"hamichlol":{"s":"read","url":"https://www.hamichlol.org.il/רבי_אברהם_גרשון_מקיטוב"}},"note":"Все три источника подтверждают статус шурина и ученика (прочитаны)"},{"id":"zev_wolf_kitzes","gen":1,"branch":"core","ru":"Зеэв Вольф Кицес","he":"זאב וולף קיצס","years":"~1695–1788","known":"«Правая рука Бешта»; трубил в шофар в его бейт-мидраше","teachers":[{"t":"besht","k":"main"}],"role":"Ближайший круг Бешта","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/זאב_וולף_קיציס"},"chabadpedia":{"s":"read","url":"https://chabadpedia.co.il/index.php/זאב_וולף_קיצס"},"hamichlol":{"s":"read","url":"https://www.hamichlol.org.il/רבי_זאב_וולף_קיציס"}},"note":""},{"id":"david_leikes","gen":1,"branch":"core","ru":"Давид Лейкес","he":"דוד לייקס","years":"?–1799","known":"Один из «трёх Давидов» при Беште; ав бейт-дин Бара","teachers":[{"t":"besht","k":"main"}],"role":"Ученик; его зять — Мордехай из Чернобыля → династия Чернобыль","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/דוד_לייקס"},"chabadpedia":{"s":"read","url":"https://chabadpedia.co.il/index.php/דוד_לייקס"},"hamichlol":{"s":"read","url":"https://www.hamichlol.org.il/רבי_דוד_לייקס"}},"note":""},{"id":"david_mikolayev","gen":1,"branch":"core","ru":"Давид из Миколаева","he":"דוד ממיקולייב","years":"?–1805","known":"Распространитель учения Бешта; известен молитвой и напевами","teachers":[{"t":"besht","k":"main"}],"role":"Привёл к хасидизму Аарона Великого из Карлина (по hamichlol)","verify":{"wiki_he":{"s":"none","url":null},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_דוד_ממיקולייב"}},"note":"Одноисточниковая персона (только hamichlol). Отождествление с Давидом Лейкесом НЕ подтверждено"},{"id":"yehuda_leib_pistin","gen":1,"branch":"core","ru":"Йехуда Лейб из Пистыни","he":"יהודה לייב מפיסטין","years":"?–1785","known":"Магид Коломыи; клойз Броды; один из ранних учеников Бешта","teachers":[{"t":"besht","k":"main"}],"role":"Тесно связан с Яаковом Йосефом из Полонного","verify":{"wiki_he":{"s":"none","url":null},"chabadpedia":{"s":"read","url":"https://chabadpedia.co.il/index.php/יהודה_לייב_מפיסטין"},"hamichlol":{"s":"read","url":"https://www.hamichlol.org.il/רבי_יהודה_לייב_מפיסטין"}},"note":"Статьи на he.wiki нет"},{"id":"leib_sarahs","gen":1,"branch":"core","ru":"Лейб Сарес (Арье Лейб)","he":"לייב שרה'ס","years":"1730–1796","known":"Скрытый праведник (нистар); странствующий цадик","teachers":[{"t":"besht","k":"main"}],"role":"Ученик Бешта","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/לייב_שרה'ס"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":""},{"id":"moshe_chaim_ephraim_sudilkov","gen":1,"branch":"core","ru":"Моше Хаим Эфраим из Судилкова","he":"משה חיים אפרים מסדילקוב","years":"1748–1800","known":"«Дегель Махане Эфраим»; внук Бешта","teachers":[{"t":"besht","k":"fam"},{"t":"maggid_mezritch","k":"main"},{"t":"yaakov_yosef_polonne","k":"sec"}],"role":"Внук Бешта, автор; двора не держал","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/משה_חיים_אפרים_מסדילקוב"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/משה_חיים_אפרים_מסדילקוב"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_משה_חיים_אפרים_מסדילקוב"}},"note":"Внук Бешта (сын дочери Адели). Учился у Бешта в детстве, затем у Магида и Полонного"},{"id":"adel_bat_besht","gen":1,"branch":"founder","ru":"Адель, дочь Бешта","he":"אדל בת הבעל שם טוב","years":"~1720–~1787","known":"Единственная дочь Бешта; родоначальница центральной линии","teachers":[{"t":"besht","k":"fam"}],"role":"Мать Моше Хаима Эфраима, Баруха и Фейги (→ р. Нахман из Брацлава)","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/אדל_בת_הבעל_שם_טוב"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Родовой узел (не ученический)"},{"id":"tzvi_ben_besht","gen":1,"branch":"founder","ru":"Цви (Гирш), сын Бешта","he":"צבי בן הבעל שם טוב","years":"XVIII в.","known":"Сын Бешта; по преданию через год уступил руководство Магиду","teachers":[{"t":"besht","k":"fam"}],"role":"Сын Бешта","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/צבי_בן_הבעל_שם_טוב"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Данные скудны"},{"id":"shneur_zalman","gen":2,"branch":"chabad","ru":"Шнеур Залман из Ляд","he":"שניאור זלמן מלאדי","years":"1745–1812","known":"«Алтер Ребе», основатель Хабада; «Тания»","teachers":[{"t":"maggid_mezritch","k":"main"},{"t":"menachem_mendel_vitebsk","k":"sec"},{"t":"avraham_hamalach","k":"sec"}],"role":"Основатель Хабад-Любавич","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/שניאור_זלמן_מלאדי"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/רבי_שניאור_זלמן_מליאדי_(אדמו\"ר_הזקן)"},"hamichlol":{"s":"read","url":"https://www.hamichlol.org.il/רבי_שניאור_זלמן_מלאדי"}},"note":"hamichlol (прочитано): רבותיו — Магид (главный), Авраам «Малах», Менахем Мендл из Витебска (+ детский учитель Иссахар Бер Ашбель). Бешт направил его учиться к Магиду."},{"id":"levi_yitzchak_berdichev","gen":2,"branch":"volhynia","ru":"Леви Ицхак из Бердичева","he":"לוי יצחק מברדיטשוב","years":"1740–1809","known":"«Кдушат Леви»; «защитник Израиля»","teachers":[{"t":"maggid_mezritch","k":"main"},{"t":"shmuel_shmelke","k":"sec"}],"role":"Рав Бердичева; долговечной династии не оставил","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/לוי_יצחק_מברדיצ'ב"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/לוי_יצחק_מברדיטשוב"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_לוי_יצחק_מברדיצ'ב"}},"note":"Шмелке привёл его к Магиду"},{"id":"elimelech_lizhensk","gen":2,"branch":"galicia","ru":"Элимелех из Лиженска","he":"אלימלך מליז'נסק","years":"1717–1787","known":"«Ноам Элимелех»; «отец» польско-галицийского хасидизма","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"Из его двора вышло большинство лидеров 3-го поколения","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/אלימלך_מליז'נסק"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/אלימלך_מליז'נסק"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_אלימלך_מליז'נסק"}},"note":""},{"id":"zusha_anipoli","gen":2,"branch":"galicia","ru":"Мешулам Зуша из Аниполи","he":"משולם זושא מאניפולי","years":"~1718–1800","known":"Брат Элимелеха; образец простоты и любви к Богу","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"Странствовал с братом; влиял личным примером","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/משולם_זושא_מאניפולי"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/משולם_זושא_מאניפולי"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_משולם_זושא_מאניפולי"}},"note":""},{"id":"menachem_mendel_vitebsk","gen":2,"branch":"chabad","ru":"Менахем Мендл из Витебска","he":"מנחם מנדל מוויטבסק","years":"1730–1788","known":"«При ѓа-Арец»; лидер алии хасидов 1777","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"Глава общины в Цфате/Тверии; наставник Шнеура Залмана","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/מנחם_מנדל_מוויטבסק"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/מנחם_מענדל_מוויטבסק"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_מנחם_מנדל_מוויטבסק"}},"note":"Связь с Бештом в юности упоминается непоследовательно"},{"id":"shmuel_shmelke","gen":2,"branch":"hungary","ru":"Шмуэль Шмелке из Никольсбурга","he":"שמואל שמלקה הורוביץ","years":"1726–1778","known":"Рав Никольсбурга (Моравия); распространил хасидизм в Моравии/Венгрии","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"Брат Пинхаса (Гафлаа)","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/שמואל_שמלקה_הורוביץ"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/שמואל_שמעלקא_מניקלשבורג"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_שמואל_שמלקה_הורוביץ"}},"note":""},{"id":"pinchas_horowitz_haflaah","gen":2,"branch":"hungary","ru":"Пинхас Горовиц (Гафлаа)","he":"פנחס הלוי הורוביץ","years":"1731–1805","known":"Рав Франкфурта; «Гафлаа», «Паним Яфот»","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"Соединил хасидизм с галахической учёностью; учитель Хатам Софера","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/פנחס_הורוביץ"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/פנחס_הורוביץ"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_פנחס_הורוביץ"}},"note":""},{"id":"menachem_nachum_chernobyl","gen":2,"branch":"chernobyl","ru":"Менахем Нахум из Чернобыля","he":"מנחם נחום מצ'רנוביל","years":"1730–1797","known":"«Меор Эйнаим»; родоначальник династии Чернобыль","teachers":[{"t":"besht","k":"sec"},{"t":"maggid_mezritch","k":"main"}],"role":"Основатель чернобыльской династии","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/מנחם_נחום_מצ'רנוביל"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/מנחם_נחום_מצ'רנוביל"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_מנחם_נחום_מצ'רנוביל"}},"note":"Причисляется к ученикам и Бешта, и Магида"},{"id":"aharon_hagadol_karlin","gen":2,"branch":"karlin","ru":"Аарон Великий из Карлина","he":"אהרן הגדול מקרלין","years":"1736–1772","known":"Основатель карлинского хасидизма; гимн «Йа Эхсоф»","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"Умер молодым; преемник — Шломо из Карлина","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/אהרן_הגדול_מקרלין"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/אהרן_מקרלין"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_אהרן_הגדול_מקרלין"}},"note":""},{"id":"chaim_chaykl_amdur","gen":2,"branch":"karlin","ru":"Хаим Хайкл из Амдура","he":"חיים חייקל מאמדור","years":"~1730–1787","known":"«Хаим ва-Хесед»; основатель амдурского хасидизма (Литва)","teachers":[{"t":"maggid_mezritch","k":"main"},{"t":"aharon_hagadol_karlin","k":"sec"}],"role":"Пересечение: ученик и Магида, и Аарона Великого","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/חיים_חייקל_מאמדור"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/חיים_חייקל_מאמדור"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_חיים_חייקא_מאמדור"}},"note":""},{"id":"yisrael_kozhnitz","gen":2,"branch":"galicia","ru":"Исраэль, Магид из Козниц","he":"ישראל הופשטיין מקוז'ניץ","years":"1737–1814","known":"«Аводат Исраэль»; столп польского хасидизма","teachers":[{"t":"maggid_mezritch","k":"main"},{"t":"elimelech_lizhensk","k":"main"},{"t":"shmuel_shmelke","k":"sec"},{"t":"levi_yitzchak_berdichev","k":"sec"}],"role":"Ярко выраженный ученик НЕСКОЛЬКИХ учителей","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/ישראל_הופשטיין_מקוז'ניץ"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/המגיד_מקוזניץ'"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_ישראל_הופשטיין_מקוז'ניץ"}},"note":"Сначала у Магида, затем главный учитель — Элимелех; плюс Шмелке и Леви Ицхак"},{"id":"avraham_kalisk","gen":2,"branch":"chabad","ru":"Авраам из Калиска","he":"אברהם הכהן מקאליסק","years":"1741–1810","known":"Лидер алии 1777; глава хасидов в Тверии после Витебска","teachers":[{"t":"maggid_mezritch","k":"main"},{"t":"menachem_mendel_vitebsk","k":"sec"}],"role":"Преемник Витебска в Эрец-Исраэль; спор со Шнеуром Залманом","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/אברהם_הכהן_מקליסק"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/אברהם_מקאליסק_(תלמיד_המגיד_ממזריטש)"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_אברהם_הכהן_מקליסק"}},"note":"Есть одноимённый хасид Алтер Ребе — другой человек"},{"id":"shlomo_karlin","gen":2,"branch":"karlin","ru":"Шломо из Карлина","he":"שלמה מקרלין","years":"1738–1792","known":"Преемник Аарона Великого; от него — почти все литовские цадики","teachers":[{"t":"aharon_hagadol_karlin","k":"main"},{"t":"maggid_mezritch","k":"sec"}],"role":"Погиб в 1792; учителя Уриэля из Стрелиска, Лехович","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/שלמה_מקרלין"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/שלמה_מקרלין"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_שלמה_מקרלין"}},"note":"Сначала Аарон Великий, затем Магид"},{"id":"avraham_hamalach","gen":2,"branch":"ruzhin","ru":"Авраам «Малах» (Ангел)","he":"אברהם המלאך","years":"1741–1776","known":"Сын Магида; аскет-мистик; «Хесед ле-Авраам»","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"Через сына Шалома Шахну — предок династии Ружин","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/אברהם_המלאך"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/אברהם_המלאך"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_אברהם_המלאך"}},"note":"Хеврута со Шнеуром Залманом"},{"id":"zev_wolf_zhitomir","gen":2,"branch":"volhynia","ru":"Зеэв Вольф из Житомира","he":"זאב וולף מז'יטומיר","years":"?–~1800","known":"«Ор ѓа-Меир» — классический сборник учения круга Магида","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"Автор","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/זאב_וולף_מז'יטומיר"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/זאב_וולף_מז'יטומיר"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_זאב_וולף_מז'יטומיר"}},"note":"Отличать от Зеэва Вольфа из Черни-Острога"},{"id":"yaakov_shimshon_shepetovka","gen":2,"branch":"volhynia","ru":"Яаков Шимшон из Шепетовки","he":"יעקב שמשון משפטיבקה","years":"?–1801","known":"Один из лидеров алии; погребён в Тверии","teachers":[{"t":"maggid_mezritch","k":"main"},{"t":"pinchas_koretz","k":"sec"}],"role":"Ученик Магида и Пинхаса из Корца","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/יעקב_שמשון_משפיטובקה"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_יעקב_שמשון_משפטיבקה"}},"note":""},{"id":"mordechai_neshchiz","gen":2,"branch":"volhynia","ru":"Мордехай из Нешхиза","he":"מרדכי מנשכיז","years":"1742–1800","known":"«Ришпей Эш»; основатель династии Нешхиз (Волынь)","teachers":[{"t":"maggid_mezritch","k":"main"},{"t":"yechiel_michel_zlotchov","k":"sec"}],"role":"Ученик Магида и Злочовера","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/מרדכי_מנשכיז"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_מרדכי_מנשכיז"}},"note":""},{"id":"yehuda_leib_hakohen","gen":2,"branch":"volhynia","ru":"Йехуда Лейб ѓа-Коэн","he":"יהודה לייב הכהן","years":"?–~1807","known":"«Ор ѓа-Гануз» на Тору","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"Ученик Магида","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/יהודה_לייב_הכהן"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_יהודה_לייב_הכהן"}},"note":""},{"id":"yissachar_ber_zlotchov","gen":2,"branch":"volhynia","ru":"Иссахар Бер из Злочова","he":"ישכר בער מזלוטשוב","years":"?–нач. XIX в.","known":"«Мевасер Цедек»; круг Злочова","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"Ученик Магида","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/ישכר_בער_מזלוטשוב"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_ישכר_בער_מזלוטשוב"}},"note":""},{"id":"shlomo_lutzker","gen":2,"branch":"volhynia","ru":"Шломо Луцкер (Магид из Луцка)","he":"שלמה לוצקר","years":"?–1813","known":"Издатель «Магид дварав ле-Яаков» (1781) и «Ор Тора»","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"Ближайший передатчик учения Магида в печати","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/שלמה_לוצקר"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_שלמה_לוצקר"}},"note":""},{"id":"zev_wolf_charny_ostroh","gen":2,"branch":"volhynia","ru":"Зеэв Вольф из Черни-Острога","he":"זאב וולף מצ'רני-אוסטראה","years":"?–нач. XIX в.","known":"Наставник на Волыни","teachers":[{"t":"besht","k":"sec"},{"t":"maggid_mezritch","k":"main"}],"role":"Отличать от Зеэва Вольфа из Житомира","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/זאב_וולף_מצ'רני-אוסטראה"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/זאב_וולף_מצ'רני-אוסטראה"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_זאב_וולף_מצ'רני-אוסטראה"}},"note":""},{"id":"yaakov_yosef_ostroh","gen":2,"branch":"volhynia","ru":"Яаков Йосеф из Острога (Рав Йеви)","he":"יעקב יוסף מאוסטרהא","years":"1738–1790","known":"«Рав Йеви»; основатель династии Острога","teachers":[{"t":"maggid_mezritch","k":"main"}],"role":"По he.wiki/hamichlol — ученик Магида, не прямой ученик Бешта","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/יעקב_יוסף_מאוסטראה"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/יעקב_יוסף_מאוסטרהא"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_יעקב_יוסף_מאוסטראה"}},"note":"he.wiki (прочитано): רבותיו — только Магид; «близок и к другим ученикам Бешта», но не прямой ученик Бешта; зять Симхи из Городенки. chabadpedia добавляет Бешта (через отца) и Полонное — he.wiki не подтверждает."},{"id":"baruch_medzhybizh","gen":2,"branch":"core","ru":"Барух из Меджибожа","he":"ברוך ממז'יבוז'","years":"1753–1811","known":"Внук Бешта; «царский» двор в Меджибоже","teachers":[{"t":"maggid_mezritch","k":"main"},{"t":"pinchas_koretz","k":"sec"},{"t":"besht","k":"fam"}],"role":"Внук Бешта; конфликт с племянником р. Нахманом из Брацлава","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/ברוך_ממז'יבוז'"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Родился 1753/1757 по разным источникам"},{"id":"yosef_yampol","gen":2,"branch":"volhynia","ru":"Йосеф из Ямполя","he":"יוסף מיאמפולה","years":"XVIII в.","known":"Родоначальник династии Ямполь","teachers":[{"t":"yechiel_michel_zlotchov","k":"main"}],"role":"Сын Злочовера","verify":{"wiki_he":{"s":"none","url":null},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_יוסף_מיאמפולה"}},"note":"Персональной статьи на he.wiki нет (есть о династии)"},{"id":"yitzchak_radvil","gen":2,"branch":"volhynia","ru":"Ицхак из Радвилова","he":"יצחק מראדוויל","years":"XVIII–XIX в.","known":"«Ор Ицхак»; основатель династии Радвил","teachers":[{"t":"yechiel_michel_zlotchov","k":"main"}],"role":"Сын Злочовера","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/יצחק_מראדוויל"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":""},{"id":"zeev_wolf_zbarazh","gen":2,"branch":"volhynia","ru":"Зеэв Вольф из Збаража","he":"זאב מזברז'","years":"XVIII в.","known":"Сын Злочовера","teachers":[{"t":"yechiel_michel_zlotchov","k":"main"}],"role":"Сын Злочовера","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/זאב_מזברז'"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Написание имени: זאב מזברז' (без «Вольф»)"},{"id":"moshe_zvhil","gen":2,"branch":"volhynia","ru":"Моше из Звиля","he":"משה מזוויהל","years":"XVIII в.","known":"Связан с истоком династии Звиль","teachers":[{"t":"yechiel_michel_zlotchov","k":"main"}],"role":"Сын Злочовера","verify":{"wiki_he":{"s":"none","url":null},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"none","url":null}},"note":"Столкновение имён: несколько «Моше из Звиля». Отдельная статья о сыне не подтверждена"},{"id":"mordechai_kremenets","gen":2,"branch":"volhynia","ru":"Мордехай из Кременца","he":"מרדכי מקרמניץ","years":"XVIII в.","known":"Сын Злочовера","teachers":[{"t":"yechiel_michel_zlotchov","k":"main"}],"role":"Сын Злочовера (наименее документированный)","verify":{"wiki_he":{"s":"na","url":null},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Требует отдельного поиска"},{"id":"avraham_chaim_zlotchov","gen":2,"branch":"volhynia","ru":"Авраам Хаим из Злочова","he":"אברהם חיים מזלוטשוב","years":"XVIII–XIX в.","known":"«Орах ла-Хаим»","teachers":[{"t":"yechiel_michel_zlotchov","k":"main"},{"t":"maggid_mezritch","k":"sec","d":true}],"role":"Ученик/преемник Злочова (не сын)","verify":{"wiki_he":{"s":"na","url":null},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Ученик, а не сын Злочовера; связь с Магидом требует проверки"},{"id":"chaim_tirer_chernovitz","gen":2,"branch":"volhynia","ru":"Хаим Тирер из Черновцов","he":"חיים טירר מטשרנוביץ","years":"XVIII–XIX в.","known":"«Беэр Маим Хаим», «Сидуро шель Шабат»","teachers":[{"t":"yechiel_michel_zlotchov","k":"main"}],"role":"Комментатор; ученик Злочовера","verify":{"wiki_he":{"s":"na","url":null},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Часто перечисляется с несколькими учителями"},{"id":"david_shlomo_eybeschutz","gen":2,"branch":"volhynia","ru":"Давид Шломо Эйбешиц","he":"דוד שלמה אייבשיץ","years":"XVIII–XIX в.","known":"«Арвей Нахаль»","teachers":[{"t":"yechiel_michel_zlotchov","k":"main"}],"role":"Проповедник; ученик Злочовера","verify":{"wiki_he":{"s":"na","url":null},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":""},{"id":"raphael_bershad","gen":2,"branch":"volhynia","ru":"Рафаэль из Бершади","he":"רפאל מברשיד","years":"1751–1827","known":"Ближайший ученик Пинхаса из Корца; путь абсолютной истины","teachers":[{"t":"pinchas_koretz","k":"main"}],"role":"Продолжил круг Пинхаса после его смерти","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/רפאל_מברשיד"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"none","url":null}},"note":"he.wiki (прочитано): תלמидו המובהק Пинхаса из Корца; Магид среди учителей не указан."},{"id":"moshe_shapira_slavuta","gen":2,"branch":"volhynia","ru":"Моше Шапира из Славуты","he":"משה שפירא מסלאוויטא","years":"р. 1759","known":"Сын Пинхаса из Корца; типограф Славуты","teachers":[{"t":"pinchas_koretz","k":"main"}],"role":"Знаменитая типография; сыновья — «Славутские братья»","verify":{"wiki_he":{"s":"na","url":null},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":""},{"id":"avraham_shimshon_rashkov","gen":2,"branch":"volhynia","ru":"Авраам Шимшон из Рашкова","he":"אברהם שמשון מראשקוב","years":"XVIII в.","known":"Сын Яакова Йосефа из Полонного; репатриант в Эрец-Исраэль","teachers":[{"t":"yaakov_yosef_polonne","k":"main"}],"role":"Единственное именное продолжение линии Полонного","verify":{"wiki_he":{"s":"na","url":null},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Яаков Йосеф из Полонного значим литературно, не как глава двора"},{"id":"simcha_horodenka","gen":2,"branch":"bratslav","ru":"Симха (сын Городенкера)","he":"שמחה בן נחמן מהורדנקא","years":"XVIII в.","known":"Сын Нахмана из Городенки; отец р. Нахмана из Брацлава","teachers":[{"t":"nachman_horodenka","k":"main"}],"role":"Женат на Фейге (внучке Бешта) → р. Нахман из Брацлава","verify":{"wiki_he":{"s":"none","url":null},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"none","url":null}},"note":"Отдельной статьи нет; сведения внутри статей об отце и сыне"},{"id":"chozeh_lublin","gen":3,"branch":"galicia","ru":"Хозе (Провидец) из Люблина","he":"יעקב יצחק הורוביץ","years":"1745–1815","known":"Центральный ребе польско-галицийского хасидизма","teachers":[{"t":"elimelech_lizhensk","k":"main"},{"t":"shmuel_shmelke","k":"sec"}],"role":"Из его двора вышло большинство лидеров 4-го поколения","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/יעקב_יצחק_הורוביץ"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Часть традиции добавляет Магида из Межерича"},{"id":"apta_ohev_yisrael","gen":3,"branch":"galicia","ru":"Авраам Йехошуа Гешель из Апты","he":"אברהם יהושע השל מאפטא","years":"1748–1825","known":"«Оэв Йисраэль»; «Аптер Рав»; двор в Меджибоже (место Бешта)","teachers":[{"t":"elimelech_lizhensk","k":"main"},{"t":"yechiel_michel_zlotchov","k":"main"},{"t":"shmuel_shmelke","k":"sec"}],"role":"Почитаемый старейшина; линия Апта–Зиньков–Меджибож","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/אברהם_יהושע_השל_מאפטא"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/אברהם_יהושע_העשיל_מאפטא"},"hamichlol":{"s":"na","url":null}},"note":"Год рождения 1748/~1755"},{"id":"menachem_mendel_rimanov","gen":3,"branch":"galicia","ru":"Менахем Мендл из Риманова","he":"מנחם מנדל מרימנוב","years":"1745–1815","known":"«Менахем Цион»; основатель династии Риманов","teachers":[{"t":"elimelech_lizhensk","k":"main"},{"t":"shmuel_shmelke","k":"main"},{"t":"maggid_mezritch","k":"sec"}],"role":"Влиятельный галицийский цадик","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/מנחם_מנדל_מרימנוב"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"he.wiki (прочитано) подтверждает всех троих: в 18 лет пришёл к Магиду, ученик Шмелке из Никольсбурга, а Элимелех — его рав (был хазаном в его доме)."},{"id":"naftali_ropshitz","gen":3,"branch":"galicia","ru":"Нафтали Цви из Ропшица","he":"נפתלי צבי הורוביץ מרופשיץ","years":"1760–1827","known":"«Зера Кодеш»; острый ум и притчи; основатель Ропшиц","teachers":[{"t":"elimelech_lizhensk","k":"sec"},{"t":"chozeh_lublin","k":"main"},{"t":"menachem_mendel_rimanov","k":"main"},{"t":"apta_ohev_yisrael","k":"sec"}],"role":"Мост к Цанзу и Дзикову (Хаим из Цанза — ученик)","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/נפתלי_צבי_הורוביץ"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":""},{"id":"kalonymus_kalman_epstein","gen":3,"branch":"galicia","ru":"Калонимус Кальман Эпштейн","he":"קלונימוס קלמן אפשטיין","years":"1751–1823","known":"«Маор ва-Шемеш»; основатель хасидского центра в Кракове","teachers":[{"t":"elimelech_lizhensk","k":"main"},{"t":"chozeh_lublin","k":"sec"},{"t":"yechiel_michel_zlotchov","k":"sec","d":true}],"role":"Распространял хасидизм в Западной Галиции","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/קלונימוס_קלמן_אפשטיין"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_קלונימוס_קלמן_אפשטיין"}},"note":"Второстепенные учителя расходятся между источниками"},{"id":"moshe_leib_sassov","gen":3,"branch":"galicia","ru":"Моше Лейб из Сасова","he":"משה לייב מסאסוב","years":"~1745–1807","known":"Основатель Сасов; любовь к простым евреям, выкуп пленных","teachers":[{"t":"shmuel_shmelke","k":"main"},{"t":"maggid_mezritch","k":"sec"},{"t":"elimelech_lizhensk","k":"sec"}],"role":"Учитель Зидичова, Косова, Перемышлян","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/משה_לייב_מסאסוב"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_משה_לייב_מסאסוב"}},"note":"Место рождения Сасов/Броды"},{"id":"meir_apta","gen":3,"branch":"galicia","ru":"Меир из Апты (Ор ла-Шамаим)","he":"מאיר הלוי רוטנברג מאפטא","years":"~1760–1831","known":"«Ор ла-Шамаим»; один из главных преемников Хозе","teachers":[{"t":"chozeh_lublin","k":"main"},{"t":"yitzchak_pinchov","k":"sec"}],"role":"Традиционалист; отвергал новшества Пшисхи","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/מאיר_הלוי_מאפטא"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_מאיר_הלוי_מאפטא"}},"note":"НЕ путать с Авраамом Йехошуа Гешелем из Апты (Оэв Йисраэль)"},{"id":"tzvi_hirsch_zidichov","gen":3,"branch":"galicia","ru":"Цви Гирш из Зидичова","he":"צבי הירש אייכנשטיין מזידיטשוב","years":"1763–1831","known":"«Атерет Цви»; основатель династии Зидичов; каббалист Зоара","teachers":[{"t":"chozeh_lublin","k":"main"},{"t":"menachem_mendel_rimanov","k":"sec"},{"t":"yisrael_kozhnitz","k":"sec"},{"t":"moshe_leib_sassov","k":"sec"}],"role":"Соединил учение Бешта с каббалой Аризаля","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/צבי_הירש_מזידיטשוב"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_צבי_הירש_מזידיטשוב"}},"note":""},{"id":"holy_jew_peshischa","gen":3,"branch":"galicia","ru":"Святой Еврей из Пшисхи","he":"יעקב יצחק רבינוביץ (היהודי הקדוש)","years":"~1766–1813","known":"Основатель школы Пшисха; рационально-интеллектуальный хасидизм","teachers":[{"t":"chozeh_lublin","k":"main"},{"t":"david_lelov","k":"sec"}],"role":"Патриарх династий Порисов и Бяла; отделение от Люблина","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/יעקב_יצחק_מפשיסחה"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/יעקב_יצחק_מפשיסחה"},"hamichlol":{"s":"none","url":null}},"note":"Год смерти 1813/1814"},{"id":"simcha_bunim_peshischa","gen":3,"branch":"galicia","ru":"Симха Буним из Пшисхи","he":"שמחה בונים מפשיסחא","years":"~1765–1827","known":"Второй лидер Пшисхи; цадик-аптекарь","teachers":[{"t":"holy_jew_peshischa","k":"main"},{"t":"chozeh_lublin","k":"sec"},{"t":"yisrael_kozhnitz","k":"sec"}],"role":"Мост к Коцку, Гуру и Ижбице","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/שמחה_בונים_מפשיסחה"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"none","url":null}},"note":"Ученики: Коцк, Гур (Хидушей ѓа-Рим), Ижбица"},{"id":"issachar_dov_radoshitz","gen":3,"branch":"galicia","ru":"Иссахар Дов Бер из Радошица","he":"ישכר דב בער מראדושיץ","years":"~1765–1843","known":"«Святой дед»; знаменитый чудотворец-целитель","teachers":[{"t":"chozeh_lublin","k":"main"},{"t":"holy_jew_peshischa","k":"sec"},{"t":"yisrael_kozhnitz","k":"sec"},{"t":"apta_ohev_yisrael","k":"sec"},{"t":"moshe_leib_sassov","k":"sec"}],"role":"Основатель династии Радошиц","verify":{"wiki_he":{"s":"none","url":null},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_ישכר_בער_מרדושיץ"}},"note":"5 учителей — характерный случай «паутины» школы Люблина"},{"id":"uri_strelisk","gen":3,"branch":"galicia","ru":"Ури из Стрелиска (Сараф)","he":"אורי מסטרליסק","years":"1757–1826","known":"«Сараф» — пламенная экстатическая молитва; «Имрей Кадош»","teachers":[{"t":"shlomo_karlin","k":"main"},{"t":"elimelech_lizhensk","k":"sec"},{"t":"yaakov_yosef_ostroh","k":"sec"}],"role":"Основатель хасидизма Стрелиск; ученики позже к Ружину","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/אורי_מסטרליסק"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"none","url":null}},"note":"he.wiki (прочитано): רבותיו — Элимелех, Шломо из Карлина (רבו המובהק — главный) и Рав Йеви из Острога."},{"id":"tzvi_elimelech_dinov","gen":3,"branch":"galicia","ru":"Цви Элимелех из Динова","he":"צבי אלימלך שפירא מדינוב","years":"1783–1841","known":"«Бней Йиссахар»; основатель династии Динов","teachers":[{"t":"chozeh_lublin","k":"main"},{"t":"menachem_mendel_rimanov","k":"sec"},{"t":"yisrael_kozhnitz","k":"sec"},{"t":"apta_ohev_yisrael","k":"sec"},{"t":"elimelech_lizhensk","k":"fam","d":true}],"role":"Плодовитый автор; борец с Гаскалой","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/צבי_אלימלך_שפירא"},"chabadpedia":{"s":"read","url":"https://chabadpedia.co.il/index.php/צבי_אלימלך_שפירא_מדינוב"},"hamichlol":{"s":"read","url":"https://www.hamichlol.org.il/רבי_צבי_אלימלך_שפירא"}},"note":"Все три источника прочитаны. Элимелех — через благословение матери в детстве (chabadpedia), не прямое ученичество"},{"id":"david_lelov","gen":3,"branch":"galicia","ru":"Давид из Лелова","he":"דוד בידרמן (דוד מלעלוב)","years":"1746–1814","known":"Символ любви к каждому еврею; основатель династии Лелов","teachers":[{"t":"elimelech_lizhensk","k":"main"},{"t":"chozeh_lublin","k":"sec"},{"t":"yisrael_kozhnitz","k":"sec"}],"role":"Учитель/наставник Пшисхи и Варки","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/דוד_בידרמן"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"read","url":"https://www.hamichlol.org.il/דוד_בידרמן"}},"note":"Расхождение: ученик из Пшисхи — Симха Буним (he.wiki) vs. Святой Еврей (hamichlol). Статьи в chabadpedia нет"},{"id":"shalom_rokeach_belz","gen":3,"branch":"galicia","ru":"Шалом Рокеах (Сар Шалом из Белза)","he":"שלום רוקח","years":"1781–1855","known":"Основатель династии Белз; построил белзскую синагогу","teachers":[{"t":"chozeh_lublin","k":"main"},{"t":"shlomo_lutzker","k":"sec"},{"t":"yisrael_kozhnitz","k":"sec"},{"t":"uri_strelisk","k":"sec"},{"t":"apta_ohev_yisrael","k":"sec"}],"role":"Раввин Белза; ученики — Цанз, Шинява","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/שלום_רוקח"},"chabadpedia":{"s":"read","url":"https://chabadpedia.co.il/index.php/שלום_רוקח"},"hamichlol":{"s":"read","url":"https://www.hamichlol.org.il/שלום_רוקח"}},"note":"Все три источника прочитаны и совпадают по учителям. Год рождения 1781 (chabadpedia/hamichlol) vs 1783 (he.wiki)"},{"id":"moshe_elyakim_kozhnitz","gen":3,"branch":"galicia","ru":"Моше Элиаким Бриа из Козниц","he":"משה אליקים בריעה הופשטיין","years":"1757–1828","known":"«Беэр Моше»; 2-й ребе Козниц","teachers":[{"t":"yisrael_kozhnitz","k":"main"},{"t":"elimelech_lizhensk","k":"sec"},{"t":"zusha_anipoli","k":"sec"},{"t":"chozeh_lublin","k":"sec"}],"role":"Сын и преемник Магида из Козниц","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/משה_אליקים_בריעה_הופשטיין"},"chabadpedia":{"s":"none","url":null},"hamichlol":{"s":"read","url":"https://www.hamichlol.org.il/משה_אליקים_בריעה_הופשטיין"}},"note":"Отец (Магид из Козниц) — фактический главный учитель"},{"id":"dovber_schneuri","gen":3,"branch":"chabad","ru":"Дов Бер Шнеури (Миттелер Ребе)","he":"דובער שניאורי","years":"1773–1827","known":"2-й Ребе Хабад-Любавич; перенёс центр в Любавичи","teachers":[{"t":"shneur_zalman","k":"main"}],"role":"Систематизатор учения Хабад","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/דובער_שניאורי"},"chabadpedia":{"s":"read","url":null},"hamichlol":{"s":"na","url":null}},"note":"chabadpedia (прочитано): предшественник — отец (Алтер Ребе), преемник — зять (Цемах Цедек); учитель — Шнеур Залман."},{"id":"aharon_halevi_staroselye","gen":3,"branch":"chabad","ru":"Аарон ѓа-Леви из Староселья","he":"אהרן הלוי מסטרשלה","years":"1766–1828","known":"«Аводат ѓа-Леви»; глава ветви Страшелье","teachers":[{"t":"shneur_zalman","k":"main"}],"role":"Ведущий ученик Шнеура Залмана; альтернатива Миттелер Ребе","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/אהרן_מסטרשלה"},"chabadpedia":{"s":"read","url":"https://chabadpedia.co.il/index.php/אהרן_מסטרשלה"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_אהרן_מסטרשלה"}},"note":"chabadpedia (прочитано): ученик Алтер Ребе (служил ему 30+ лет); после его смерти — спор с Миттелер Ребе, основал Страшелье."},{"id":"tzemach_tzedek","gen":3,"branch":"chabad","ru":"Менахем Мендл (Цемах Цедек)","he":"מנחם מנדל שניאורסון (הצמח צדק)","years":"1789–1866","known":"3-й Ребе Хабад-Любавич; галахист","teachers":[{"t":"shneur_zalman","k":"main"},{"t":"dovber_schneuri","k":"sec"}],"role":"«Цемах Цедек», «Дерех мицвотеха»","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/מנחם_מנדל_שניאורסון_(הצמח_צדק)"},"chabadpedia":{"s":"read","url":null},"hamichlol":{"s":"na","url":null}},"note":"chabadpedia (прочитано): внук Алтер Ребе (по матери), воспитан и обучен дедом; зять и преемник Миттелер Ребе. Отец — Шалом Шахна Альтшулер (не путать с Шаломом Шахной из Прогобишта в линии Ружина)."},{"id":"yitzchak_aizik_homel","gen":3,"branch":"chabad","ru":"Ицхак Айзик Эпштейн из Гомеля","he":"יצחק אייזיק אפשטיין מהומיל","years":"~1770–1857","known":"«Хана Ариэль»; ведущий хасид-мыслитель Хабада","teachers":[{"t":"shneur_zalman","k":"main"},{"t":"dovber_schneuri","k":"sec"},{"t":"tzemach_tzedek","k":"sec"}],"role":"«Машпиа» трёх поколений адморов","verify":{"wiki_he":{"s":"na","url":null},"chabadpedia":{"s":"read","url":null},"hamichlol":{"s":"na","url":null}},"note":"chabadpedia (прочитано): рав Гомеля, из великих хасидов Алтер Ребе, Миттелер Ребе и Цемах Цедека; «Хана Ариэль». Годы 1770–1857."},{"id":"moshe_schneuri","gen":3,"branch":"chabad","ru":"Моше Шнеури","he":"משה שניאורי","years":"~1784–~1853","known":"Младший сын Шнеура Залмана","teachers":[{"t":"shneur_zalman","k":"main"}],"role":"Вокруг биографии — исторические споры","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/משה_שניאורי"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Даты и обстоятельства сильно расходятся"},{"id":"mordechai_twersky_chernobyl","gen":3,"branch":"chernobyl","ru":"Мордехай Тверски из Чернобыля","he":"מרדכי טברסקי (המגיד מטשרנוביל)","years":"1770–1837","known":"2-й адмор Чернобыля; «Ликутей Тора»","teachers":[{"t":"menachem_nachum_chernobyl","k":"main"}],"role":"8 сыновей развели чернобыльское древо (Тальное, Сквира, Макаров, Триск и др.)","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/מרדכי_טברסקי"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Заголовок ивр.-статьи не дизамбигуирован (есть тёзки)"},{"id":"moshe_tzvi_savran","gen":3,"branch":"chernobyl","ru":"Моше Цви Гитерман из Саврани","he":"משה צבי מסאווראן","years":"?–1838","known":"«Магид из Саврани»; резкая полемика против Бреслова","teachers":[{"t":"levi_yitzchak_berdichev","k":"main"},{"t":"baruch_medzhybizh","k":"sec"},{"t":"apta_ohev_yisrael","k":"sec"},{"t":"shpoler_zeide","k":"sec"}],"role":"Основатель династии Саврань (Подолия)","verify":{"wiki_he":{"s":"read","url":"https://he.wikipedia.org/wiki/משה_צבי_מסאווראן"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"he.wiki (прочитано): учителя — Шполер Зейде, Барух из Меджибожа, Леви Ицхак из Бердичева; ездил к Апте. Основы хасидизма получил от рава из Бердичева."},{"id":"israel_pikov","gen":3,"branch":"volhynia","ru":"Исраэль из Пикова","he":"ישראל מפיקוב","years":"?–1818","known":"Сын и преемник Леви Ицхака из Бердичева","teachers":[{"t":"levi_yitzchak_berdichev","k":"main"}],"role":"Крупной устойчивой династии линия Бердичева не образовала","verify":{"wiki_he":{"s":"na","url":null},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Наличие отдельной статьи не подтверждено"},{"id":"asher_stolin_i","gen":3,"branch":"karlin","ru":"Ашер из Столина (Первый)","he":"אשר מסטולין (הראשון)","years":"1760–1826","known":"Объединил общины Карлина и Столина","teachers":[{"t":"aharon_hagadol_karlin","k":"fam"},{"t":"shlomo_karlin","k":"main"}],"role":"Сын Аарона Великого, воспитан Шломо из Карлина","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/אשר_מסטולין_(הראשון)"},"chabadpedia":{"s":"url","url":"https://chabadpedia.co.il/index.php/אשר_מסטולין"},"hamichlol":{"s":"url","url":"https://www.hamichlol.org.il/רבי_אשר_מסטולין_(הראשון)"}},"note":"Год рождения 1759/1765; не путать с Ашером II"},{"id":"mordechai_lechovitch","gen":3,"branch":"karlin","ru":"Мордехай из Лехович","he":"מרדכי מלעכוויטש","years":"1742–1810","known":"Основатель Лехович — предтеча Кобрина и Слонима","teachers":[{"t":"shlomo_karlin","k":"main"},{"t":"aharon_hagadol_karlin","k":"sec"}],"role":"От него — литовско-белорусские ветви Кобрин/Слоним","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/מרדכי_מלעכוויטש"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":""},{"id":"shalom_shachna_prohobisht","gen":3,"branch":"ruzhin","ru":"Шалом Шахна из Прогобишта","he":"שלום שכנא מפרוהוביטש","years":"~1769–1802","known":"Сын Авраама «Малаха»; отец Исраэля из Ружина","teachers":[{"t":"avraham_hamalach","k":"fam"},{"t":"nachum_chernobyl_line","k":"sec"}],"role":"Связующее звено к династии Ружин","verify":{"wiki_he":{"s":"na","url":null},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Мало документирован; наличие статей не подтверждено"},{"id":"nachman_breslov","gen":3,"branch":"bratslav","ru":"Нахман из Брацлава","he":"נחמן מברסלב","years":"1772–1810","known":"Основатель хасидизма Бреслов; правнук Бешта; «Ликутей Моѓаран»","teachers":[{"t":"besht","k":"fam"},{"t":"nachman_horodenka","k":"fam"}],"role":"Особый случай: без единого формального наставника; самостоятельное основание школы","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/נחמן_מברסלב"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Правнук Бешта через мать Фейгу (дочь Адели). Формального учителя пок.2 не имел; духовно опирался на наследие Бешта и Городенкера"},{"id":"nathan_breslov","gen":4,"branch":"bratslav","ru":"Натан из Немирова (Реб Носон)","he":"נתן שטרנהרץ מברסלב","years":"1780–1844","known":"Главный ученик и писец р. Нахмана; «Ликутей Ѓалахот»","teachers":[{"t":"nachman_breslov","k":"main"}],"role":"Записал и издал наследие Нахмана; паломничество в Умань","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/נתן_שטרנהרץ"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Поколение 4 (по просьбе — как мост). До Нахмана бывал у Леви Ицхака из Бердичева"},{"id":"israel_ruzhin","gen":4,"branch":"ruzhin","ru":"Исраэль из Ружина","he":"ישראל מרוז'ין","years":"1796–1850","known":"«Ружинер»; правнук Магида; «царский» двор","teachers":[{"t":"shalom_shachna_prohobisht","k":"fam"}],"role":"6 сыновей → Садгора, Боян, Чортков, Гусятин, Штефанешти, Богуш","verify":{"wiki_he":{"s":"na","url":null},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Поколение 4 (по просьбе — как мост). После ареста бежал в Садгору (Австрия)"},{"id":"aaron_karlin_ii","gen":4,"branch":"karlin","ru":"Аарон II из Карлина (Бейт Аѓарон)","he":"אהרן מקרלין (השני)","years":"1802–1872","known":"«Бейт Аѓарон»; возродил Карлин-Столин","teachers":[{"t":"asher_stolin_i","k":"fam"}],"role":"Ключевой труд «Бейт Аѓарон»","verify":{"wiki_he":{"s":"url","url":"https://he.wikipedia.org/wiki/אהרן_מקרלין_(השני)"},"chabadpedia":{"s":"na","url":null},"hamichlol":{"s":"na","url":null}},"note":"Поколение 4 (по просьбе — как мост)"}];
-var STUB_TEACHERS={"yitzchak_drohobych":"Ицхак из Дрогобыча (отец Злочовера, скрытый мистик)","rashash":"Шалом Шараби, Рашаш (каббала, Бейт-Эль)","yitzchak_pinchov":"Ицхак из Пинчова (ранний учитель Меира из Апты)","nachum_chernobyl_line":"линия Чернобыля (наставники Шалома Шахны)","shpoler_zeide":"Арье Лейб из Шполы (Шполер Зейде)"};
+<script>/* Автосгенерировано transform.js — модель данных карты. */
+const SRCNAME = ["Википедия","Chabadpedia","Михлол"];
+const MACRO = [{"key":"found","label":"Основатель","color":"#7F6134"},{"key":"mezh","label":"Межеричский круг","color":"#4A4A8C"},{"key":"pol","label":"Польша–Галиция","color":"#0B5FA5"},{"key":"chabad","label":"Хабад","color":"#6B4BA8"},{"key":"ukr","label":"Чернобыль–Ружин","color":"#A8302A"},{"key":"karlin","label":"Карлин–Столин","color":"#2C6B3F"},{"key":"brat","label":"Брацлав","color":"#1E6E73"}];
+const FINE = [{"key":"found","label":"Основатель","color":"#7F6134"},{"key":"circle","label":"Круг Бешта / Межерич","color":"#4A4A8C"},{"key":"volyn","label":"Волынь","color":"#6E6A78"},{"key":"polgal","label":"Польша–Галиция","color":"#0B5FA5"},{"key":"nikols","label":"Никольсбург / Франкфурт","color":"#2E6E8E"},{"key":"chabad","label":"Хабад","color":"#6B4BA8"},{"key":"chern","label":"Чернобыль / Украина","color":"#A8302A"},{"key":"karlin","label":"Карлин–Столин","color":"#2C6B3F"},{"key":"ruzhin","label":"Ружин","color":"#B25000"},{"key":"brat","label":"Брацлав","color":"#1E6E73"}];
+const F2M = {"found":"found","circle":"mezh","volyn":"mezh","polgal":"pol","nikols":"pol","chabad":"chabad","chern":"ukr","ruzhin":"ukr","karlin":"karlin","brat":"brat"};
+const GENS = [{"n":1,"label":"Бешт и его круг","meta":"1740–1772"},{"n":2,"label":"Ученики Магида","meta":"1772–1815"},{"n":3,"label":"Внуки движения","meta":"1790–1830"},{"n":4,"label":"Дворы и школы","meta":"1815–1860"}];
+const N = [{"id":"besht","g":1,"b":"found","ru":"Баал Шем Тов (Бешт)","he":"ישראל בן אליעזר (הבעל שם טוב)","y":"~1698–1760","gist":"Основатель хасидизма, Меджибож","src":"opp","su":["https://he.wikipedia.org/wiki/הבעל_שם_טוב","https://chabadpedia.co.il/index.php/הבעל_שם_טוב","https://www.hamichlol.org.il/רבי_ישראל_בעל_שם_טוב"]},{"id":"maggid_mezritch","g":1,"b":"circle","ru":"Дов Бер, Магид из Межерича","he":"דוב בער ממזריטש","y":"~1704–1772","gist":"Главный преемник Бешта","src":"opp","su":["https://he.wikipedia.org/wiki/המגיד_ממזריטש","https://chabadpedia.co.il/index.php/המגיד_ממזריטש","https://www.hamichlol.org.il/המגיד_ממזריטש"],"m":{"id":"besht"}},{"id":"yaakov_yosef_polonne","g":1,"b":"volyn","ru":"Яаков Йосеф из Полонного","he":"יעקב יוסף מפולנאה","y":"~1710–1784","gist":"«Толдот Яаков Йосеф» — первая печатная хасидская книга (1780)","src":"ppp","su":["https://he.wikipedia.org/wiki/יעקב_יוסף_כ\"ץ","https://chabadpedia.co.il/index.php/יעקב_יוסף_כ\"ץ","https://www.hamichlol.org.il/רבי_יעקב_יוסף_כ\"ץ"],"m":{"id":"besht"},"note":"Год смерти: 1782/83/84 по разным источникам"},{"id":"pinchas_koretz","g":1,"b":"volyn","ru":"Пинхас Шапиро из Корца","he":"פנחס שפירא מקוריץ","y":"1726–1791","gist":"«Имрей Пинхас»","src":"opp","su":["https://he.wikipedia.org/wiki/פנחס_שפירא_מקוריץ","https://chabadpedia.co.il/index.php/פנחס_מקוריץ","https://www.hamichlol.org.il/רבי_פנחס_שפירא_מקוריץ"],"m":{"id":"besht"},"o":[{"id":"maggid_mezritch"}],"note":"he.wiki (прочитано): רבותיו — Бешт и Магид; из старших/близких учеников Бешта. Прямое ученичество у Бешта подтверждено."},{"id":"nachman_horodenka","g":1,"b":"brat","ru":"Нахман из Городенки","he":"נחמן מהורדנקא","y":"~1680–1765","gist":"Один из первых учеников Бешта","src":"ppp","su":["https://he.wikipedia.org/wiki/נחמן_מהורדנקא","https://chabadpedia.co.il/index.php/נחמן_מהורדנקא","https://www.hamichlol.org.il/רבי_נחמן_מהורדנקא"],"m":{"id":"besht"}},{"id":"yechiel_michel_zlotchov","g":1,"b":"volyn","ru":"Йехиэль Михл, Магид из Злочова","he":"יחיאל מיכל מזלוטשוב","y":"~1721–1786","gist":"Мост между кругом Бешта и учениками Магида","src":"ppp","su":["https://he.wikipedia.org/wiki/יחיאל_מיכל_מזלוטשוב","https://chabadpedia.co.il/index.php/יחיאל_מיכל_מזלוטשוב","https://www.hamichlol.org.il/רבי_יחיאל_מיכל_מזלוטשוב"],"m":{"id":"besht"},"o":[{"id":"maggid_mezritch"}],"note":"Пограничная фигура 1/2 поколения: ученик и Бешта, и Магида. Годы жизни варьируются (1721/1725/1726–1781/1786)"},{"id":"aryeh_leib_mochiach","g":1,"b":"circle","ru":"Арье Лейб, Мохиах из Полонного","he":"אריה יהודה לייב המוכיח","y":"?–1770","gist":"Странствующий проповедник-обличитель","src":"pnn","su":["https://he.wikipedia.org/wiki/יהודה_לייב_מפולנאה",null,null],"m":{"id":"besht"},"note":"Не путать с Яаковом Йосефом из Полонного. Разночтение имени Арье/Йехуда Лейб"},{"id":"meir_margolies","g":1,"b":"circle","ru":"Меир Маргалиот","he":"מאיר מרגליות","y":"~1707–1790","gist":"Ученик Бешта и официальный раввин-галахист","src":"ppp","su":["https://he.wikipedia.org/wiki/מאיר_מרגליות","https://chabadpedia.co.il/index.php/מאיר_מרגליות","https://www.hamichlol.org.il/רבי_מאיר_מרגליות"],"m":{"id":"besht"}},{"id":"nachman_kosov","g":1,"b":"circle","ru":"Нахман из Косова","he":"נחמן מקוסוב","y":"1716–1741/1756","gist":"Каббалист круга Кут","src":"onn","su":["https://he.wikipedia.org/wiki/נחמן_מקוסוב",null,null],"m":{"id":"besht"},"note":"he.wiki (прочитано): ученик Бешта; сперва противник, затем вошёл в круг учеников. Дядя Аарона Великого из Карлина."},{"id":"avraham_gershon_kitov","g":1,"b":"circle","ru":"Авраам Гершон из Китова","he":"אברהם גרשון מקיטוב","y":"~1701–1761","gist":"Шурин Бешта и его ученик","src":"ooo","su":["https://he.wikipedia.org/wiki/אברהם_גרשון_מקיטוב","https://chabadpedia.co.il/index.php/אברהם_גרשון_מקיטוב_(גיס_הבעל_שם_טוב)","https://www.hamichlol.org.il/רבי_אברהם_גרשון_מקיטוב"],"m":{"id":"besht","rel":"шурин"},"note":"Все три источника подтверждают статус шурина и ученика (прочитаны)"},{"id":"zev_wolf_kitzes","g":1,"b":"circle","ru":"Зеэв Вольф Кицес","he":"זאב וולף קיצס","y":"~1695–1788","gist":"«Правая рука Бешта»","src":"ooo","su":["https://he.wikipedia.org/wiki/זאב_וולף_קיציס","https://chabadpedia.co.il/index.php/זאב_וולף_קיצס","https://www.hamichlol.org.il/רבי_זאב_וולף_קיציס"],"m":{"id":"besht"}},{"id":"david_leikes","g":1,"b":"circle","ru":"Давид Лейкес","he":"דוד לייקס","y":"?–1799","gist":"Один из «трёх Давидов» при Беште","src":"ooo","su":["https://he.wikipedia.org/wiki/דוד_לייקס","https://chabadpedia.co.il/index.php/דוד_לייקס","https://www.hamichlol.org.il/רבי_דוד_לייקס"],"m":{"id":"besht"}},{"id":"david_mikolayev","g":1,"b":"circle","ru":"Давид из Миколаева","he":"דוד ממיקולייב","y":"?–1805","gist":"Распространитель учения Бешта","src":"nnp","su":[null,null,"https://www.hamichlol.org.il/רבי_דוד_ממיקולייב"],"m":{"id":"besht"},"flag":3,"note":"Одноисточниковая персона (только hamichlol). Отождествление с Давидом Лейкесом НЕ подтверждено"},{"id":"yehuda_leib_pistin","g":1,"b":"circle","ru":"Йехуда Лейб из Пистыни","he":"יהודה לייב מפיסטין","y":"?–1785","gist":"Магид Коломыи","src":"noo","su":[null,"https://chabadpedia.co.il/index.php/יהודה_לייב_מפיסטין","https://www.hamichlol.org.il/רבי_יהודה_לייב_מפיסטין"],"m":{"id":"besht"},"note":"Статьи на he.wiki нет"},{"id":"leib_sarahs","g":1,"b":"circle","ru":"Лейб Сарес (Арье Лейб)","he":"לייב שרה'ס","y":"1730–1796","gist":"Скрытый праведник (нистар)","src":"pnn","su":["https://he.wikipedia.org/wiki/לייב_שרה'ס",null,null],"m":{"id":"besht"}},{"id":"moshe_chaim_ephraim_sudilkov","g":1,"b":"circle","ru":"Моше Хаим Эфраим из Судилкова","he":"משה חיים אפרים מסדילקוב","y":"1748–1800","gist":"«Дегель Махане Эфраим»","src":"ppp","su":["https://he.wikipedia.org/wiki/משה_חיים_אפרים_מסדילקוב","https://chabadpedia.co.il/index.php/משה_חיים_אפרים_מסדילקוב","https://www.hamichlol.org.il/רבי_משה_חיים_אפרים_מסדילקוב"],"m":{"id":"maggid_mezritch"},"o":[{"id":"besht","rel":"дед"},{"id":"yaakov_yosef_polonne"}],"note":"Внук Бешта (сын дочери Адели). Учился у Бешта в детстве, затем у Магида и Полонного"},{"id":"adel_bat_besht","g":1,"b":"found","ru":"Адель, дочь Бешта","he":"אדל בת הבעל שם טוב","y":"~1720–~1787","gist":"Единственная дочь Бешта","src":"pnn","su":["https://he.wikipedia.org/wiki/אדל_בת_הבעל_שם_טוב",null,null],"m":{"id":"besht","rel":"дочь"},"note":"Родовой узел (не ученический)"},{"id":"tzvi_ben_besht","g":1,"b":"found","ru":"Цви (Гирш), сын Бешта","he":"צבי בן הבעל שם טוב","y":"XVIII в.","gist":"Сын Бешта","src":"pnn","su":["https://he.wikipedia.org/wiki/צבי_בן_הבעל_שם_טוב",null,null],"m":{"id":"besht","rel":"сын"},"note":"Данные скудны"},{"id":"shneur_zalman","g":2,"b":"chabad","ru":"Шнеур Залман из Ляд","he":"שניאור זלמן מלאדי","y":"1745–1812","gist":"«Алтер Ребе», основатель Хабада","src":"ppo","su":["https://he.wikipedia.org/wiki/שניאור_זלמן_מלאדי","https://chabadpedia.co.il/index.php/רבי_שניאור_זלמן_מליאדי_(אדמו\"ר_הזקן)","https://www.hamichlol.org.il/רבי_שניאור_זלמן_מלאדי"],"m":{"id":"maggid_mezritch"},"o":[{"id":"menachem_mendel_vitebsk"},{"id":"avraham_hamalach"}],"note":"hamichlol (прочитано): Магид (главный), Авраам «Малах», Менахем Мендл из Витебска (+ детский учитель Ашбель). Бешт направил к Магиду."},{"id":"levi_yitzchak_berdichev","g":2,"b":"volyn","ru":"Леви Ицхак из Бердичева","he":"לוי יצחק מברדיטשוב","y":"1740–1809","gist":"«Кдушат Леви»","src":"ppp","su":["https://he.wikipedia.org/wiki/לוי_יצחק_מברדיצ'ב","https://chabadpedia.co.il/index.php/לוי_יצחק_מברדיטשוב","https://www.hamichlol.org.il/רבי_לוי_יצחק_מברדיצ'ב"],"m":{"id":"maggid_mezritch"},"o":[{"id":"shmuel_shmelke"}],"note":"Шмелке привёл его к Магиду"},{"id":"elimelech_lizhensk","g":2,"b":"polgal","ru":"Элимелех из Лиженска","he":"אלימלך מליז'נסק","y":"1717–1787","gist":"«Ноам Элимелех»","src":"ppp","su":["https://he.wikipedia.org/wiki/אלימלך_מליז'נסק","https://chabadpedia.co.il/index.php/אלימלך_מליז'נסק","https://www.hamichlol.org.il/רבי_אלימלך_מליז'נסק"],"m":{"id":"maggid_mezritch"}},{"id":"zusha_anipoli","g":2,"b":"polgal","ru":"Мешулам Зуша из Аниполи","he":"משולם זושא מאניפולי","y":"~1718–1800","gist":"Брат Элимелеха","src":"ppp","su":["https://he.wikipedia.org/wiki/משולם_זושא_מאניפולי","https://chabadpedia.co.il/index.php/משולם_זושא_מאניפולי","https://www.hamichlol.org.il/רבי_משולם_זושא_מאניפולי"],"m":{"id":"maggid_mezritch"}},{"id":"menachem_mendel_vitebsk","g":2,"b":"chabad","ru":"Менахем Мендл из Витебска","he":"מנחם מנדל מוויטבסק","y":"1730–1788","gist":"«При ѓа-Арец»","src":"ppp","su":["https://he.wikipedia.org/wiki/מנחם_מנדל_מוויטבסק","https://chabadpedia.co.il/index.php/מנחם_מענדל_מוויטבסק","https://www.hamichlol.org.il/רבי_מנחם_מנדל_מוויטבסק"],"m":{"id":"maggid_mezritch"},"note":"Связь с Бештом в юности упоминается непоследовательно"},{"id":"shmuel_shmelke","g":2,"b":"nikols","ru":"Шмуэль Шмелке из Никольсбурга","he":"שמואל שמלקה הורוביץ","y":"1726–1778","gist":"Рав Никольсбурга (Моравия)","src":"ppp","su":["https://he.wikipedia.org/wiki/שמואל_שמלקה_הורוביץ","https://chabadpedia.co.il/index.php/שמואל_שמעלקא_מניקלשבורג","https://www.hamichlol.org.il/רבי_שמואל_שמלקה_הורוביץ"],"m":{"id":"maggid_mezritch"}},{"id":"pinchas_horowitz_haflaah","g":2,"b":"nikols","ru":"Пинхас Горовиц (Гафлаа)","he":"פנחס הלוי הורוביץ","y":"1731–1805","gist":"Рав Франкфурта","src":"ppp","su":["https://he.wikipedia.org/wiki/פנחס_הורוביץ","https://chabadpedia.co.il/index.php/פנחס_הורוביץ","https://www.hamichlol.org.il/רבי_פנחס_הורוביץ"],"m":{"id":"maggid_mezritch"}},{"id":"menachem_nachum_chernobyl","g":2,"b":"chern","ru":"Менахем Нахум из Чернобыля","he":"מנחם נחום מצ'רנוביל","y":"1730–1797","gist":"«Меор Эйнаим»","src":"ppp","su":["https://he.wikipedia.org/wiki/מנחם_נחום_מצ'רנוביל","https://chabadpedia.co.il/index.php/מנחם_נחום_מצ'רנוביל","https://www.hamichlol.org.il/רבי_מנחם_נחום_מצ'רנוביל"],"m":{"id":"maggid_mezritch"},"o":[{"id":"besht"}],"note":"Причисляется к ученикам и Бешта, и Магида"},{"id":"aharon_hagadol_karlin","g":2,"b":"karlin","ru":"Аарон Великий из Карлина","he":"אהרן הגדול מקרלין","y":"1736–1772","gist":"Основатель карлинского хасидизма","src":"ppp","su":["https://he.wikipedia.org/wiki/אהרן_הגדול_מקרלין","https://chabadpedia.co.il/index.php/אהרן_מקרלין","https://www.hamichlol.org.il/רבי_אהרן_הגדול_מקרלין"],"m":{"id":"maggid_mezritch"}},{"id":"chaim_chaykl_amdur","g":2,"b":"karlin","ru":"Хаим Хайкл из Амдура","he":"חיים חייקל מאמדור","y":"~1730–1787","gist":"«Хаим ва-Хесед»","src":"ppp","su":["https://he.wikipedia.org/wiki/חיים_חייקל_מאמדור","https://chabadpedia.co.il/index.php/חיים_חייקל_מאמדור","https://www.hamichlol.org.il/רבי_חיים_חייקא_מאמדור"],"m":{"id":"maggid_mezritch"},"o":[{"id":"aharon_hagadol_karlin"}]},{"id":"yisrael_kozhnitz","g":2,"b":"polgal","ru":"Исраэль, Магид из Козниц","he":"ישראל הופשטיין מקוז'ניץ","y":"1737–1814","gist":"«Аводат Исраэль»","src":"ppp","su":["https://he.wikipedia.org/wiki/ישראל_הופשטיין_מקוז'ניץ","https://chabadpedia.co.il/index.php/המגיד_מקוזניץ'","https://www.hamichlol.org.il/רבי_ישראל_הופשטיין_מקוז'ניץ"],"m":{"id":"maggid_mezritch"},"o":[{"id":"elimelech_lizhensk"},{"id":"shmuel_shmelke"},{"id":"levi_yitzchak_berdichev"}],"note":"Сначала у Магида, затем главный учитель — Элимелех; плюс Шмелке и Леви Ицхак"},{"id":"avraham_kalisk","g":2,"b":"chabad","ru":"Авраам из Калиска","he":"אברהם הכהן מקאליסק","y":"1741–1810","gist":"Лидер алии 1777","src":"ppp","su":["https://he.wikipedia.org/wiki/אברהם_הכהן_מקליסק","https://chabadpedia.co.il/index.php/אברהם_מקאליסק_(תלמיד_המגיד_ממזריטש)","https://www.hamichlol.org.il/רבי_אברהם_הכהן_מקליסק"],"m":{"id":"maggid_mezritch"},"o":[{"id":"menachem_mendel_vitebsk"}],"note":"Есть одноимённый хасид Алтер Ребе — другой человек"},{"id":"shlomo_karlin","g":2,"b":"karlin","ru":"Шломо из Карлина","he":"שלמה מקרלין","y":"1738–1792","gist":"Преемник Аарона Великого","src":"ppp","su":["https://he.wikipedia.org/wiki/שלמה_מקרלין","https://chabadpedia.co.il/index.php/שלמה_מקרלין","https://www.hamichlol.org.il/רבי_שלמה_מקרלין"],"m":{"id":"aharon_hagadol_karlin"},"o":[{"id":"maggid_mezritch"}],"note":"Сначала Аарон Великий, затем Магид"},{"id":"avraham_hamalach","g":2,"b":"ruzhin","ru":"Авраам «Малах» (Ангел)","he":"אברהם המלאך","y":"1741–1776","gist":"Сын Магида","src":"ppp","su":["https://he.wikipedia.org/wiki/אברהם_המלאך","https://chabadpedia.co.il/index.php/אברהם_המלאך","https://www.hamichlol.org.il/רבי_אברהם_המלאך"],"m":{"id":"maggid_mezritch","rel":"отец"},"note":"Хеврута со Шнеуром Залманом"},{"id":"zev_wolf_zhitomir","g":2,"b":"volyn","ru":"Зеэв Вольф из Житомира","he":"זאב וולף מז'יטומיר","y":"?–~1800","gist":"«Ор ѓа-Меир» — классический сборник учения круга Магида","src":"ppp","su":["https://he.wikipedia.org/wiki/זאב_וולף_מז'יטומיר","https://chabadpedia.co.il/index.php/זאב_וולף_מז'יטומיר","https://www.hamichlol.org.il/רבי_זאב_וולף_מז'יטומיר"],"m":{"id":"maggid_mezritch"},"note":"Отличать от Зеэва Вольфа из Черни-Острога"},{"id":"yaakov_shimshon_shepetovka","g":2,"b":"volyn","ru":"Яаков Шимшон из Шепетовки","he":"יעקב שמשון משפטיבקה","y":"?–1801","gist":"Один из лидеров алии","src":"pnp","su":["https://he.wikipedia.org/wiki/יעקב_שמשון_משפיטובקה",null,"https://www.hamichlol.org.il/רבי_יעקב_שמשון_משפטיבקה"],"m":{"id":"maggid_mezritch"},"o":[{"id":"pinchas_koretz"}]},{"id":"mordechai_neshchiz","g":2,"b":"volyn","ru":"Мордехай из Нешхиза","he":"מרדכי מנשכיז","y":"1742–1800","gist":"«Ришпей Эш»","src":"pnp","su":["https://he.wikipedia.org/wiki/מרדכי_מנשכיז",null,"https://www.hamichlol.org.il/רבי_מרדכי_מנשכיז"],"m":{"id":"maggid_mezritch"},"o":[{"id":"yechiel_michel_zlotchov"}]},{"id":"yehuda_leib_hakohen","g":2,"b":"volyn","ru":"Йехуда Лейб ѓа-Коэн","he":"יהודה לייב הכהן","y":"?–~1807","gist":"«Ор ѓа-Гануз» на Тору","src":"pnp","su":["https://he.wikipedia.org/wiki/יהודה_לייב_הכהן",null,"https://www.hamichlol.org.il/רבי_יהודה_לייב_הכהן"],"m":{"id":"maggid_mezritch"}},{"id":"yissachar_ber_zlotchov","g":2,"b":"volyn","ru":"Иссахар Бер из Злочова","he":"ישכר בער מזלוטשוב","y":"?–нач. XIX в.","gist":"«Мевасер Цедек»","src":"pnp","su":["https://he.wikipedia.org/wiki/ישכר_בער_מזלוטשוב",null,"https://www.hamichlol.org.il/רבי_ישכר_בער_מזלוטשוב"],"m":{"id":"maggid_mezritch"}},{"id":"shlomo_lutzker","g":2,"b":"volyn","ru":"Шломо Луцкер (Магид из Луцка)","he":"שלמה לוצקר","y":"?–1813","gist":"Издатель «Магид дварав ле-Яаков» (1781) и «Ор Тора»","src":"pnp","su":["https://he.wikipedia.org/wiki/שלמה_לוצקר",null,"https://www.hamichlol.org.il/רבי_שלמה_לוצקר"],"m":{"id":"maggid_mezritch"}},{"id":"zev_wolf_charny_ostroh","g":2,"b":"volyn","ru":"Зеэв Вольф из Черни-Острога","he":"זאב וולף מצ'רני-אוסטראה","y":"?–нач. XIX в.","gist":"Наставник на Волыни","src":"ppp","su":["https://he.wikipedia.org/wiki/זאב_וולף_מצ'רני-אוסטראה","https://chabadpedia.co.il/index.php/זאב_וולף_מצ'רני-אוסטראה","https://www.hamichlol.org.il/רבי_זאב_וולף_מצ'רני-אוסטראה"],"m":{"id":"maggid_mezritch"},"o":[{"id":"besht"}]},{"id":"yaakov_yosef_ostroh","g":2,"b":"volyn","ru":"Яаков Йосеф из Острога (Рав Йеви)","he":"יעקב יוסף מאוסטרהא","y":"1738–1790","gist":"«Рав Йеви»","src":"opp","su":["https://he.wikipedia.org/wiki/יעקב_יוסף_מאוסטראה","https://chabadpedia.co.il/index.php/יעקב_יוסף_מאוסטרהא","https://www.hamichlol.org.il/רבי_יעקב_יוסף_מאוסטראה"],"m":{"id":"maggid_mezritch"},"flag":3,"note":"he.wiki (прочитано): только Магид; близок к другим ученикам Бешта, но не прямой ученик; зять Симхи из Городенки. chabadpedia добавляет Бешта/Полонное — he.wiki не подтверждает."},{"id":"baruch_medzhybizh","g":2,"b":"circle","ru":"Барух из Меджибожа","he":"ברוך ממז'יבוז'","y":"1753–1811","gist":"Внук Бешта","src":"pnn","su":["https://he.wikipedia.org/wiki/ברוך_ממז'יבוז'",null,null],"m":{"id":"maggid_mezritch"},"o":[{"id":"pinchas_koretz"},{"id":"besht","rel":"дед"}],"note":"Родился 1753/1757 по разным источникам"},{"id":"yosef_yampol","g":2,"b":"volyn","ru":"Йосеф из Ямполя","he":"יוסף מיאמפולה","y":"XVIII в.","gist":"Родоначальник династии Ямполь","src":"nnp","su":[null,null,"https://www.hamichlol.org.il/רבי_יוסף_מיאמפולה"],"m":{"id":"yechiel_michel_zlotchov","rel":"отец"},"note":"Персональной статьи на he.wiki нет (есть о династии)"},{"id":"yitzchak_radvil","g":2,"b":"volyn","ru":"Ицхак из Радвилова","he":"יצחק מראדוויל","y":"XVIII–XIX в.","gist":"«Ор Ицхак»","src":"pnn","su":["https://he.wikipedia.org/wiki/יצחק_מראדוויל",null,null],"m":{"id":"yechiel_michel_zlotchov","rel":"отец"}},{"id":"zeev_wolf_zbarazh","g":2,"b":"volyn","ru":"Зеэв Вольф из Збаража","he":"זאב מזברז'","y":"XVIII в.","gist":"Сын Злочовера","src":"pnn","su":["https://he.wikipedia.org/wiki/זאב_מזברז'",null,null],"m":{"id":"yechiel_michel_zlotchov","rel":"отец"},"note":"Написание имени: זאב מזברז' (без «Вольф»)"},{"id":"moshe_zvhil","g":2,"b":"volyn","ru":"Моше из Звиля","he":"משה מזוויהל","y":"XVIII в.","gist":"Связан с истоком династии Звиль","src":"nnn","su":[null,null,null],"m":{"id":"yechiel_michel_zlotchov","rel":"отец"},"flag":3,"note":"Столкновение имён: несколько «Моше из Звиля». Отдельная статья о сыне не подтверждена"},{"id":"mordechai_kremenets","g":2,"b":"volyn","ru":"Мордехай из Кременца","he":"מרדכי מקרמניץ","y":"XVIII в.","gist":"Сын Злочовера","src":"nnn","su":[null,null,null],"m":{"id":"yechiel_michel_zlotchov","rel":"отец"},"note":"Требует отдельного поиска"},{"id":"avraham_chaim_zlotchov","g":2,"b":"volyn","ru":"Авраам Хаим из Злочова","he":"אברהם חיים מזלוטשוב","y":"XVIII–XIX в.","gist":"«Орах ла-Хаим»","src":"nnn","su":[null,null,null],"m":{"id":"yechiel_michel_zlotchov"},"o":[{"id":"maggid_mezritch"}],"flag":3,"note":"Ученик, а не сын Злочовера; связь с Магидом требует проверки"},{"id":"chaim_tirer_chernovitz","g":2,"b":"volyn","ru":"Хаим Тирер из Черновцов","he":"חיים טירר מטשרנוביץ","y":"XVIII–XIX в.","gist":"«Беэр Маим Хаим», «Сидуро шель Шабат»","src":"nnn","su":[null,null,null],"m":{"id":"yechiel_michel_zlotchov"},"note":"Часто перечисляется с несколькими учителями"},{"id":"david_shlomo_eybeschutz","g":2,"b":"volyn","ru":"Давид Шломо Эйбешиц","he":"דוד שלמה אייבשיץ","y":"XVIII–XIX в.","gist":"«Арвей Нахаль»","src":"nnn","su":[null,null,null],"m":{"id":"yechiel_michel_zlotchov"}},{"id":"raphael_bershad","g":2,"b":"volyn","ru":"Рафаэль из Бершади","he":"רפאל מברשיד","y":"1751–1827","gist":"Ближайший ученик Пинхаса из Корца","src":"onn","su":["https://he.wikipedia.org/wiki/רפאל_מברשיד",null,null],"m":{"id":"pinchas_koretz"},"note":"he.wiki (прочитано): תלмидו המובהק Пинхаса; Магид не указан."},{"id":"moshe_shapira_slavuta","g":2,"b":"volyn","ru":"Моше Шапира из Славуты","he":"משה שפירא מסלאוויטא","y":"р. 1759","gist":"Сын Пинхаса из Корца","src":"nnn","su":[null,null,null],"m":{"id":"pinchas_koretz","rel":"отец"}},{"id":"avraham_shimshon_rashkov","g":2,"b":"volyn","ru":"Авраам Шимшон из Рашкова","he":"אברהם שמשון מראשקוב","y":"XVIII в.","gist":"Сын Яакова Йосефа из Полонного","src":"nnn","su":[null,null,null],"m":{"id":"yaakov_yosef_polonne","rel":"отец"},"note":"Яаков Йосеф из Полонного значим литературно, не как глава двора"},{"id":"simcha_horodenka","g":2,"b":"brat","ru":"Симха (сын Городенкера)","he":"שמחה בן נחמן מהורדנקא","y":"XVIII в.","gist":"Сын Нахмана из Городенки","src":"nnn","su":[null,null,null],"m":{"id":"nachman_horodenka","rel":"отец"},"note":"Отдельной статьи нет; сведения внутри статей об отце и сыне"},{"id":"chozeh_lublin","g":3,"b":"polgal","ru":"Хозе (Провидец) из Люблина","he":"יעקב יצחק הורוביץ","y":"1745–1815","gist":"Центральный ребе польско-галицийского хасидизма","src":"pnn","su":["https://he.wikipedia.org/wiki/יעקב_יצחק_הורוביץ",null,null],"m":{"id":"elimelech_lizhensk"},"o":[{"id":"shmuel_shmelke"}],"note":"Часть традиции добавляет Магида из Межерича"},{"id":"apta_ohev_yisrael","g":3,"b":"polgal","ru":"Авраам Йехошуа Гешель из Апты","he":"אברהם יהושע השל מאפטא","y":"1748–1825","gist":"«Оэв Йисраэль»","src":"ppn","su":["https://he.wikipedia.org/wiki/אברהם_יהושע_השל_מאפטא","https://chabadpedia.co.il/index.php/אברהם_יהושע_העשיל_מאפטא",null],"m":{"id":"elimelech_lizhensk"},"o":[{"id":"yechiel_michel_zlotchov"},{"id":"shmuel_shmelke"}],"note":"Год рождения 1748/~1755"},{"id":"menachem_mendel_rimanov","g":3,"b":"polgal","ru":"Менахем Мендл из Риманова","he":"מנחם מנדל מרימנוב","y":"1745–1815","gist":"«Менахем Цион»","src":"onn","su":["https://he.wikipedia.org/wiki/מנחם_מנדל_מרימנוב",null,null],"m":{"id":"elimelech_lizhensk"},"o":[{"id":"shmuel_shmelke"},{"id":"maggid_mezritch"}],"note":"he.wiki (прочитано): все трое — в 18 лет пришёл к Магиду, ученик Шмелке, Элимелех — его рав."},{"id":"naftali_ropshitz","g":3,"b":"polgal","ru":"Нафтали Цви из Ропшица","he":"נפתלי צבי הורוביץ מרופשיץ","y":"1760–1827","gist":"«Зера Кодеш»","src":"pnn","su":["https://he.wikipedia.org/wiki/נפתלי_צבי_הורוביץ",null,null],"m":{"id":"chozeh_lublin"},"o":[{"id":"elimelech_lizhensk"},{"id":"menachem_mendel_rimanov"},{"id":"apta_ohev_yisrael"}]},{"id":"kalonymus_kalman_epstein","g":3,"b":"polgal","ru":"Калонимус Кальман Эпштейн","he":"קלונימוס קלמן אפשטיין","y":"1751–1823","gist":"«Маор ва-Шемеш»","src":"pnp","su":["https://he.wikipedia.org/wiki/קלונימוס_קלמן_אפשטיין",null,"https://www.hamichlol.org.il/רבי_קלונימוס_קלמן_אפשטיין"],"m":{"id":"elimelech_lizhensk"},"o":[{"id":"chozeh_lublin"},{"id":"yechiel_michel_zlotchov"}],"flag":3,"note":"Второстепенные учителя расходятся между источниками"},{"id":"moshe_leib_sassov","g":3,"b":"polgal","ru":"Моше Лейб из Сасова","he":"משה לייב מסאסוב","y":"~1745–1807","gist":"Основатель Сасов","src":"pnp","su":["https://he.wikipedia.org/wiki/משה_לייב_מסאסוב",null,"https://www.hamichlol.org.il/רבי_משה_לייב_מסאסוב"],"m":{"id":"shmuel_shmelke"},"o":[{"id":"maggid_mezritch"},{"id":"elimelech_lizhensk"}],"note":"Место рождения Сасов/Броды"},{"id":"meir_apta","g":3,"b":"polgal","ru":"Меир из Апты (Ор ла-Шамаим)","he":"מאיר הלוי רוטנברג מאפטא","y":"~1760–1831","gist":"«Ор ла-Шамаим»","src":"pnp","su":["https://he.wikipedia.org/wiki/מאיר_הלוי_מאפטא",null,"https://www.hamichlol.org.il/רבי_מאיר_הלוי_מאפטא"],"m":{"id":"chozeh_lublin"},"note":"НЕ путать с Авраамом Йехошуа Гешелем из Апты (Оэв Йисраэль)"},{"id":"tzvi_hirsch_zidichov","g":3,"b":"polgal","ru":"Цви Гирш из Зидичова","he":"צבי הירש אייכנשטיין מזידיטשוב","y":"1763–1831","gist":"«Атерет Цви»","src":"pnp","su":["https://he.wikipedia.org/wiki/צבי_הירש_מזידיטשוב",null,"https://www.hamichlol.org.il/רבי_צבי_הירש_מזידיטשוב"],"m":{"id":"chozeh_lublin"},"o":[{"id":"menachem_mendel_rimanov"},{"id":"yisrael_kozhnitz"},{"id":"moshe_leib_sassov"}]},{"id":"holy_jew_peshischa","g":3,"b":"polgal","ru":"Святой Еврей из Пшисхи","he":"יעקב יצחק רבינוביץ (היהודי הקדוש)","y":"~1766–1813","gist":"Основатель школы Пшисха","src":"ppn","su":["https://he.wikipedia.org/wiki/יעקב_יצחק_מפשיסחה","https://chabadpedia.co.il/index.php/יעקב_יצחק_מפשיסחה",null],"m":{"id":"chozeh_lublin"},"o":[{"id":"david_lelov"}],"note":"Год смерти 1813/1814"},{"id":"simcha_bunim_peshischa","g":3,"b":"polgal","ru":"Симха Буним из Пшисхи","he":"שמחה בונים מפשיסחא","y":"~1765–1827","gist":"Второй лидер Пшисхи","src":"pnn","su":["https://he.wikipedia.org/wiki/שמחה_בונים_מפשיסחה",null,null],"m":{"id":"holy_jew_peshischa"},"o":[{"id":"chozeh_lublin"},{"id":"yisrael_kozhnitz"}],"note":"Ученики: Коцк, Гур (Хидушей ѓа-Рим), Ижбица"},{"id":"issachar_dov_radoshitz","g":3,"b":"polgal","ru":"Иссахар Дов Бер из Радошица","he":"ישכר דב בער מראדושיץ","y":"~1765–1843","gist":"«Святой дед»","src":"nnp","su":[null,null,"https://www.hamichlol.org.il/רבי_ישכר_בער_מרדושיץ"],"m":{"id":"chozeh_lublin"},"o":[{"id":"holy_jew_peshischa"},{"id":"yisrael_kozhnitz"},{"id":"apta_ohev_yisrael"},{"id":"moshe_leib_sassov"}],"note":"5 учителей — характерный случай «паутины» школы Люблина"},{"id":"uri_strelisk","g":3,"b":"polgal","ru":"Ури из Стрелиска (Сараф)","he":"אורי מסטרליסק","y":"1757–1826","gist":"«Сараф» — пламенная экстатическая молитва","src":"onn","su":["https://he.wikipedia.org/wiki/אורי_מסטרליסק",null,null],"m":{"id":"shlomo_karlin"},"o":[{"id":"elimelech_lizhensk"},{"id":"yaakov_yosef_ostroh"}],"note":"he.wiki (прочитано): רבותиו — Элимелех, Шломо из Карлина (מובהק — главный), Рав Йеви."},{"id":"tzvi_elimelech_dinov","g":3,"b":"polgal","ru":"Цви Элимелех из Динова","he":"צבי אלימלך שפירא מדינוב","y":"1783–1841","gist":"«Бней Йиссахар»","src":"ooo","su":["https://he.wikipedia.org/wiki/צבי_אלימלך_שפירא","https://chabadpedia.co.il/index.php/צבי_אלימלך_שפירא_מדינוב","https://www.hamichlol.org.il/רבי_צבי_אלימלך_שפירא"],"m":{"id":"chozeh_lublin"},"o":[{"id":"menachem_mendel_rimanov"},{"id":"yisrael_kozhnitz"},{"id":"apta_ohev_yisrael"},{"id":"elimelech_lizhensk"}],"flag":3,"note":"Все три источника прочитаны. Элимелех — через благословение матери в детстве (chabadpedia), не прямое ученичество"},{"id":"david_lelov","g":3,"b":"polgal","ru":"Давид из Лелова","he":"דוד בידרמן (דוד מלעלוב)","y":"1746–1814","gist":"Символ любви к каждому еврею","src":"ono","su":["https://he.wikipedia.org/wiki/דוד_בידרמן",null,"https://www.hamichlol.org.il/דוד_בידרמן"],"m":{"id":"elimelech_lizhensk"},"o":[{"id":"chozeh_lublin"},{"id":"yisrael_kozhnitz"}],"flag":3,"note":"Расхождение: ученик из Пшисхи — Симха Буним (he.wiki) vs. Святой Еврей (hamichlol). Статьи в chabadpedia нет"},{"id":"shalom_rokeach_belz","g":3,"b":"polgal","ru":"Шалом Рокеах (Сар Шалом из Белза)","he":"שלום רוקח","y":"1781–1855","gist":"Основатель династии Белз","src":"ooo","su":["https://he.wikipedia.org/wiki/שלום_רוקח","https://chabadpedia.co.il/index.php/שלום_רוקח","https://www.hamichlol.org.il/שלום_רוקח"],"m":{"id":"chozeh_lublin"},"o":[{"id":"shlomo_lutzker"},{"id":"yisrael_kozhnitz"},{"id":"uri_strelisk"},{"id":"apta_ohev_yisrael"}],"flag":3,"note":"Все три источника прочитаны и совпадают по учителям. Год рождения 1781 (chabadpedia/hamichlol) vs 1783 (he.wiki)"},{"id":"moshe_elyakim_kozhnitz","g":3,"b":"polgal","ru":"Моше Элиаким Бриа из Козниц","he":"משה אליקים בריעה הופשטיין","y":"1757–1828","gist":"«Беэр Моше»","src":"ono","su":["https://he.wikipedia.org/wiki/משה_אליקים_בריעה_הופשטיין",null,"https://www.hamichlol.org.il/משה_אליקים_בריעה_הופשטיין"],"m":{"id":"yisrael_kozhnitz","rel":"отец"},"o":[{"id":"elimelech_lizhensk"},{"id":"zusha_anipoli"},{"id":"chozeh_lublin"}],"note":"Отец (Магид из Козниц) — фактический главный учитель"},{"id":"dovber_schneuri","g":3,"b":"chabad","ru":"Дов Бер Шнеури (Миттелер Ребе)","he":"דובער שניאורי","y":"1773–1827","gist":"2-й Ребе Хабад-Любавич","src":"pon","su":["https://he.wikipedia.org/wiki/דובער_שניאורי",null,null],"m":{"id":"shneur_zalman","rel":"отец"},"note":"chabadpedia (прочитано): предшественник — отец (Алтер Ребе), преемник — зять (Цемах Цедек); учитель — Шнеур Залман."},{"id":"aharon_halevi_staroselye","g":3,"b":"chabad","ru":"Аарон ѓа-Леви из Староселья","he":"אהרן הלוי מסטרשלה","y":"1766–1828","gist":"«Аводат ѓа-Леви»","src":"pop","su":["https://he.wikipedia.org/wiki/אהרן_מסטרשלה","https://chabadpedia.co.il/index.php/אהרן_מסטרשלה","https://www.hamichlol.org.il/רבי_אהרן_מסטרשלה"],"m":{"id":"shneur_zalman"},"flag":3,"note":"chabadpedia (прочитано): ученик Алтер Ребе (30+ лет); после его смерти — спор с Миттелер Ребе, основал Страшелье."},{"id":"tzemach_tzedek","g":3,"b":"chabad","ru":"Менахем Мендл (Цемах Цедек)","he":"מנחם מנדל שניאורסון (הצמח צדק)","y":"1789–1866","gist":"3-й Ребе Хабад-Любавич","src":"pon","su":["https://he.wikipedia.org/wiki/מנחם_מנדל_שניאורסון_(הצמח_צדק)",null,null],"m":{"id":"shneur_zalman","rel":"дед"},"o":[{"id":"dovber_schneuri","rel":"тесть"}],"note":"chabadpedia (прочитано): внук Алтер Ребе, воспитан и обучен дедом; зять и преемник Миттелер Ребе. Отец — Шалом Шахна Альтшулер (не путать с Шаломом Шахной из Прогобишта)."},{"id":"yitzchak_aizik_homel","g":3,"b":"chabad","ru":"Ицхак Айзик Эпштейн из Гомеля","he":"יצחק אייזיק אפשטיין מהומיל","y":"~1770–1857","gist":"«Хана Ариэль»","src":"non","su":[null,null,null],"m":{"id":"shneur_zalman"},"o":[{"id":"dovber_schneuri"},{"id":"tzemach_tzedek"}],"note":"chabadpedia (прочитано): рав Гомеля, из великих хасидов Алтер Ребе, Миттелер Ребе и Цемах Цедека; «Хана Ариэль». 1770–1857."},{"id":"moshe_schneuri","g":3,"b":"chabad","ru":"Моше Шнеури","he":"משה שניאורי","y":"~1784–~1853","gist":"Младший сын Шнеура Залмана","src":"pnn","su":["https://he.wikipedia.org/wiki/משה_שניאורי",null,null],"m":{"id":"shneur_zalman","rel":"отец"},"note":"Даты и обстоятельства сильно расходятся"},{"id":"mordechai_twersky_chernobyl","g":3,"b":"chern","ru":"Мордехай Тверски из Чернобыля","he":"מרדכי טברסקי (המגיד מטשרנוביל)","y":"1770–1837","gist":"2-й адмор Чернобыля","src":"pnn","su":["https://he.wikipedia.org/wiki/מרדכי_טברסקי",null,null],"m":{"id":"menachem_nachum_chernobyl","rel":"отец"},"note":"Заголовок ивр.-статьи не дизамбигуирован (есть тёзки)"},{"id":"moshe_tzvi_savran","g":3,"b":"chern","ru":"Моше Цви Гитерман из Саврани","he":"משה צבי מסאווראן","y":"?–1838","gist":"«Магид из Саврани»","src":"onn","su":["https://he.wikipedia.org/wiki/משה_צבי_מסאווראן",null,null],"m":{"id":"levi_yitzchak_berdichev"},"o":[{"id":"baruch_medzhybizh"},{"id":"apta_ohev_yisrael"}],"note":"he.wiki (прочитано): Шполер Зейде, Барух из Меджибожа, Леви Ицхак; ездил к Апте. Основы — от Бердичева."},{"id":"israel_pikov","g":3,"b":"volyn","ru":"Исраэль из Пикова","he":"ישראל מפיקוב","y":"?–1818","gist":"Сын и преемник Леви Ицхака из Бердичева","src":"nnn","su":[null,null,null],"m":{"id":"levi_yitzchak_berdichev","rel":"отец"},"flag":3,"note":"Наличие отдельной статьи не подтверждено"},{"id":"asher_stolin_i","g":3,"b":"karlin","ru":"Ашер из Столина (Первый)","he":"אשר מסטולין (הראשון)","y":"1760–1826","gist":"Объединил общины Карлина и Столина","src":"ppp","su":["https://he.wikipedia.org/wiki/אשר_מסטולין_(הראשון)","https://chabadpedia.co.il/index.php/אשר_מסטולין","https://www.hamichlol.org.il/רבי_אשר_מסטולין_(הראשון)"],"m":{"id":"shlomo_karlin"},"o":[{"id":"aharon_hagadol_karlin","rel":"отец"}],"note":"Год рождения 1759/1765; не путать с Ашером II"},{"id":"mordechai_lechovitch","g":3,"b":"karlin","ru":"Мордехай из Лехович","he":"מרדכי מלעכוויטש","y":"1742–1810","gist":"Основатель Лехович — предтеча Кобрина и Слонима","src":"pnn","su":["https://he.wikipedia.org/wiki/מרדכי_מלעכוויטש",null,null],"m":{"id":"shlomo_karlin"},"o":[{"id":"aharon_hagadol_karlin"}]},{"id":"shalom_shachna_prohobisht","g":3,"b":"ruzhin","ru":"Шалом Шахна из Прогобишта","he":"שלום שכנא מפרוהוביטש","y":"~1769–1802","gist":"Сын Авраама «Малаха»","src":"nnn","su":[null,null,null],"m":{"id":"avraham_hamalach","rel":"отец"},"flag":3,"note":"Мало документирован; наличие статей не подтверждено"},{"id":"nachman_breslov","g":3,"b":"brat","ru":"Нахман из Брацлава","he":"נחמן מברסלב","y":"1772–1810","gist":"Основатель хасидизма Бреслов","src":"pnn","su":["https://he.wikipedia.org/wiki/נחמן_מברסלב",null,null],"o":[{"id":"besht","rel":"прадед"},{"id":"nachman_horodenka","rel":"прадед"}],"note":"Правнук Бешта через мать Фейгу (дочь Адели). Формального учителя пок.2 не имел; духовно опирался на наследие Бешта и Городенкера"},{"id":"nathan_breslov","g":4,"b":"brat","ru":"Натан из Немирова (Реб Носон)","he":"נתן שטרנהרץ מברסלב","y":"1780–1844","gist":"Главный ученик и писец р. Нахмана","src":"pnn","su":["https://he.wikipedia.org/wiki/נתן_שטרנהרץ",null,null],"m":{"id":"nachman_breslov"},"note":"Поколение 4 (по просьбе — как мост). До Нахмана бывал у Леви Ицхака из Бердичева"},{"id":"israel_ruzhin","g":4,"b":"ruzhin","ru":"Исраэль из Ружина","he":"ישראל מרוז'ין","y":"1796–1850","gist":"«Ружинер»","src":"nnn","su":[null,null,null],"m":{"id":"shalom_shachna_prohobisht","rel":"отец"},"note":"Поколение 4 (по просьбе — как мост). После ареста бежал в Садгору (Австрия)"},{"id":"aaron_karlin_ii","g":4,"b":"karlin","ru":"Аарон II из Карлина (Бейт Аѓарон)","he":"אהרן מקרלין (השני)","y":"1802–1872","gist":"«Бейт Аѓарон»","src":"pnn","su":["https://he.wikipedia.org/wiki/אהרן_מקרלין_(השני)",null,null],"m":{"id":"asher_stolin_i","rel":"отец"},"note":"Поколение 4 (по просьбе — как мост)"}];
+if (typeof module !== 'undefined') module.exports = { SRCNAME, MACRO, FINE, F2M, GENS, N };
 </script>
-<script>/* Клиентское приложение карты. Использует глобальные BRANCHES, NODES, STUB_TEACHERS. */
+<script>/* Карта генеалогии — приложение (ванильный JS). Глобалы: SRCNAME, MACRO, FINE, F2M, GENS, N. */
 (function () {
   "use strict";
 
-  var GEN_TITLES = {
-    1: "Поколение 1 — Бааль Шем Тов и его круг",
-    2: "Поколение 2 — ученики Магида и других учителей 1-го поколения",
-    3: "Поколение 3 — ученики 2-го поколения",
-    4: "Поколение 4 — узлы-мосты (по запросу)"
-  };
-  var BRANCH_ORDER = ["founder","core","volhynia","galicia","hungary","chabad","chernobyl","karlin","ruzhin","bratslav"];
-  var VERIFY = {
-    read: { color:"#1e7e34", label:"текст статьи прочитан" },
-    url:  { color:"#2980b9", label:"статья и URL подтверждены поиском" },
-    none: { color:"#ced4da", label:"статьи на источнике нет" },
-    na:   { color:"#e0a800", label:"не проверено (лимит поиска исчерпан)" }
-  };
-  var SRC_LABEL = { wiki_he:"Ивр. Википедия", chabadpedia:"Chabadpedia", hamichlol:"hamichlol (Михлол)" };
-  var SRC_SHORT = { wiki_he:"В", chabadpedia:"Х", hamichlol:"М" };
-
-  var byId = {};
-  NODES.forEach(function (n) { byId[n.id] = n; });
-
-  // students index
-  var studentsOf = {};
-  NODES.forEach(function (n) {
-    (n.teachers || []).forEach(function (t) {
-      if (byId[t.t]) { (studentsOf[t.t] = studentsOf[t.t] || []).push({ id: n.id, k: t.k, d: t.d }); }
-    });
+  var byId = {}; N.forEach(function (n) { byId[n.id] = n; });
+  var EDGES = [];
+  N.forEach(function (n) {
+    if (n.m) EDGES.push({ f: n.m.id, t: n.id, main: true });
+    (n.o || []).forEach(function (o) { EDGES.push({ f: o.id, t: n.id, main: false }); });
   });
+  function teachersOf(id) { var n = byId[id]; if (!n) return []; return (n.m ? [n.m] : []).concat(n.o || []); }
+  function studentsOf(id) { return N.filter(function (x) { return teachersOf(x.id).some(function (t) { return t.id === id; }); }); }
+  function degree(id) { return N.filter(function (x) { return x.m && x.m.id === id; }).length; }
+  function birth(n) { var m = String(n.y || "").match(/\d{4}/); return m ? +m[0] : 9999; }
 
-  // edges (only where teacher is a real node)
-  var edges = [];
-  NODES.forEach(function (n) {
-    (n.teachers || []).forEach(function (t) {
-      if (byId[t.t]) edges.push({ from: t.t, to: n.id, k: t.k, d: !!t.d });
-    });
-  });
+  var SRC = {
+    o: { bg: "#248A3D", fg: "#FFF", bc: "#248A3D", bstyle: "solid", t: "подтверждено", dotBg: "rgba(60,60,67,.26)", dotBc: "transparent" },
+    p: { bg: "#B25000", fg: "#FFF", bc: "#B25000", bstyle: "solid", t: "частично", dotBg: "rgba(178,80,0,.5)", dotBc: "transparent" },
+    n: { bg: "transparent", fg: "rgba(60,60,67,.4)", bc: "rgba(60,60,67,.3)", bstyle: "dashed", t: "нет данных", dotBg: "transparent", dotBc: "rgba(60,60,67,.28)" }
+  };
+  var FLAG = { 1: "⚑", 2: "!", 3: "⚑!" };
 
-  var stage, svg, mapEl;
-  var cardEls = {};
-  var selected = null;
-  var showAll = false;
-  var activeBranches = {}; BRANCH_ORDER.forEach(function (b) { activeBranches[b] = true; });
-  var query = "";
+  var S = { mview: "overview", wview: "rows", sel: null, open: null, hover: null, q: "", off: {}, all: false, colorMode: "macro" };
 
-  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
-  function esc(s){ return (s==null?"":String(s)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function catList() { return S.colorMode === "muted10" ? FINE : MACRO; }
+  function catKey(n) { return S.colorMode === "muted10" ? n.b : F2M[n.b]; }
+  function catOf(n) { var k = catKey(n); return catList().find(function (c) { return c.key === k; }) || { color: "rgba(60,60,67,.35)", label: "—" }; }
+  function colorOf(n) { return S.colorMode === "neutral" ? "rgba(60,60,67,.35)" : catOf(n).color; }
+  function branchOrder() { return catList().map(function (c) { return c.key; }); }
 
-  function teacherLines(n) {
-    var main = [], sec = [], fam = [];
-    (n.teachers || []).forEach(function (t) {
-      var name = byId[t.t] ? byId[t.t].ru : (STUB_TEACHERS[t.t] || t.t);
-      var disp = esc(name) + (t.d ? ' <span class="disp" title="Атрибуция спорна между источниками">⚑</span>' : '');
-      if (t.k === "main") main.push(disp);
-      else if (t.k === "fam") fam.push(disp);
-      else sec.push(disp);
-    });
-    var out = "";
-    if (main.length) out += '<div class="tl"><span class="tlk">ученик:</span> ' + main.join(", ") + '</div>';
-    if (sec.length)  out += '<div class="tl sec"><span class="tlk">также у:</span> ' + sec.join(", ") + '</div>';
-    if (fam.length)  out += '<div class="tl fam"><span class="tlk">родство:</span> ' + fam.join(", ") + '</div>';
-    if (!main.length && !sec.length && !fam.length) out += '<div class="tl root">— родоначальник —</div>';
-    return out;
+  function isWide() { return window.innerWidth >= 900; }
+  function curView() { return isWide() ? S.wview : S.mview; }
+
+  function visible(n) {
+    var q = S.q.trim().toLowerCase();
+    if (S.off[catKey(n)]) return false;
+    if (q && (n.ru + " " + n.he + " " + (n.gist || "")).toLowerCase().indexOf(q) < 0) return false;
+    return true;
+  }
+  function visMap() { var v = {}; N.forEach(function (n) { v[n.id] = visible(n); }); return v; }
+
+  // ---------- helpers ----------
+  function h(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+  function svg(tag) { return document.createElementNS("http://www.w3.org/2000/svg", tag); }
+  function nameOf(id) { return byId[id] ? byId[id].ru : id; }
+
+  function srcDots(n) {
+    var w = h("div", "dots");
+    n.src.split("").forEach(function (ch) { var s = SRC[ch] || SRC.n; var d = h("span", "dot"); d.style.background = s.dotBg; d.style.borderColor = s.dotBc; d.title = s.t; w.appendChild(d); });
+    return w;
+  }
+  function branchTag(n) {
+    var w = h("span", "btag"); var d = h("span", "bdot"); d.style.background = colorOf(n); w.appendChild(d);
+    w.appendChild(h("span", "btxt", catOf(n).label)); return w;
+  }
+  function pill(id, rel, onGo) {
+    var t = byId[id]; var p = h("button", "pill");
+    var d = h("span", "pdot"); d.style.background = t ? colorOf(t) : "#bbb"; p.appendChild(d);
+    p.appendChild(h("span", "pname", t ? t.ru : id));
+    if (rel) p.appendChild(h("span", "prel", "· " + rel));
+    p.addEventListener("click", function (e) { e.stopPropagation(); onGo(id); });
+    return p;
   }
 
-  function badges(n) {
-    var html = '<div class="badges">';
-    ["wiki_he","chabadpedia","hamichlol"].forEach(function (src) {
-      var v = (n.verify && n.verify[src]) || { s: "na" };
-      var meta = VERIFY[v.s] || VERIFY.na;
-      var title = SRC_LABEL[src] + ": " + meta.label + (v.url ? " — " + v.url : "");
-      if (v.url) {
-        html += '<a class="bdg" style="background:' + meta.color + '" href="' + esc(v.url) + '" target="_blank" rel="noopener" title="' + esc(title) + '" onclick="event.stopPropagation()">' + SRC_SHORT[src] + '</a>';
-      } else {
-        var outline = (v.s === "none");
-        html += '<span class="bdg' + (outline ? ' out' : '') + '" style="' + (outline ? 'color:#adb5bd;border-color:#ced4da' : 'background:' + meta.color) + '" title="' + esc(title) + '">' + SRC_SHORT[src] + '</span>';
-      }
-    });
-    html += '</div>';
-    return html;
+  // resting card content (shared)
+  function cardInner(n, opts) {
+    opts = opts || {};
+    var inner = h("div", "cardin");
+    // header
+    var head = h("div", "chead");
+    var nm = h("span", "cname", n.ru); head.appendChild(nm);
+    if (n.flag) { var fl = h("span", "cflag", FLAG[n.flag]); head.appendChild(fl); }
+    if (opts.chevron) head.appendChild(h("span", "chev", opts.open ? "⌃" : "›"));
+    var yr = h("span", "cyear", (n.y || "").replace(/-/g, "–")); head.appendChild(yr);
+    head.appendChild(srcDots(n));
+    inner.appendChild(head);
+
+    if (opts.branch) {
+      var br = h("div", "cbranch"); br.appendChild(branchTag(n)); inner.appendChild(br);
+    }
+    // мувхак row
+    var mv = h("div", "cmuv");
+    mv.appendChild(h("span", "mlbl", n.m ? "МУВХАК" : "МУВХАК —"));
+    if (n.m) {
+      var tx = nameOf(n.m.id) + (n.m.rel ? " · " + n.m.rel : "");
+      mv.appendChild(h("span", "mval", tx));
+    } else { mv.appendChild(h("span", "mval dim", "не установлен")); }
+    inner.appendChild(mv);
+
+    // также у (tree/expanded)
+    if (opts.also && n.o && n.o.length) {
+      var al = h("div", "calso");
+      al.appendChild(h("div", "microlbl", "ТАКЖЕ У"));
+      var row = h("div", "pillrow");
+      n.o.forEach(function (o) { row.appendChild(pill(o.id, o.rel, go)); });
+      al.appendChild(row); inner.appendChild(al);
+    }
+    return inner;
   }
 
-  function makeCard(n) {
-    var color = (BRANCHES[n.branch] || {}).color || "#888";
-    var c = el("div", "node");
-    c.style.borderLeftColor = color;
-    c.setAttribute("data-id", n.id);
-    c.setAttribute("data-branch", n.branch);
-    var noteBtn = n.note ? '<button class="noteBtn" title="Примечание / расхождение" onclick="event.stopPropagation();this.closest(\'.node\').classList.toggle(\'open\')">!</button>' : '';
-    c.innerHTML =
-      '<div class="node-head">' +
-        '<div class="node-title">' + esc(n.ru) + noteBtn + '</div>' +
-        '<div class="node-he" dir="rtl">' + esc(n.he) + '</div>' +
-      '</div>' +
-      '<div class="node-meta">' + esc(n.years) + (n.known ? ' · ' + esc(n.known) : '') + '</div>' +
-      teacherLines(n) +
-      badges(n) +
-      (n.note ? '<div class="node-note">' + esc(n.note) + '</div>' : '');
-    c.addEventListener("click", function () { selectNode(selected === n.id ? null : n.id); });
-    cardEls[n.id] = c;
+  function expandInner(n) {
+    var ex = h("div", "cexp");
+    if (n.he) { var he = h("div", "che", n.he); he.setAttribute("dir", "rtl"); ex.appendChild(he); }
+    if (n.gist) ex.appendChild(h("div", "cgist", n.gist));
+    if (n.note) ex.appendChild(h("div", "cnote", n.note));
+    var studs = studentsOf(n.id);
+    if (studs.length) {
+      ex.appendChild(h("div", "microlbl", "УЧЕНИКИ " + studs.length));
+      var row = h("div", "pillrow");
+      studs.sort(function (a, b) { return birth(a) - birth(b); }).forEach(function (s) {
+        var rel = "";
+        var te = teachersOf(s.id).find(function (t) { return t.id === n.id; });
+        if (te && te.rel) rel = te.rel;
+        row.appendChild(pill(s.id, rel, go));
+      });
+      ex.appendChild(row);
+    }
+    // источники
+    ex.appendChild(h("div", "microlbl", "ИСТОЧНИКИ"));
+    n.src.split("").forEach(function (ch, i) {
+      var s = SRC[ch] || SRC.n;
+      var r = h(n.su && n.su[i] ? "a" : "div", "srcrow");
+      if (n.su && n.su[i]) { r.href = n.su[i]; r.target = "_blank"; r.rel = "noopener"; r.addEventListener("click", function (e) { e.stopPropagation(); }); }
+      var bdg = h("span", "sbadge", ["В", "Х", "М"][i]);
+      bdg.style.color = s.fg; bdg.style.background = s.bg; bdg.style.borderColor = s.bc; bdg.style.borderStyle = s.bstyle;
+      r.appendChild(bdg);
+      r.appendChild(h("span", "sname", SRCNAME[i]));
+      r.appendChild(h("span", "sstat", s.t));
+      if (n.su && n.su[i]) r.appendChild(h("span", "chev", "›"));
+      ex.appendChild(r);
+    });
+    return ex;
+  }
+
+  // relations for selection highlight
+  function relSet() {
+    var r = {};
+    if (S.sel) {
+      teachersOf(S.sel).forEach(function (t) { r[t.id] = "teacher"; });
+      N.forEach(function (n) { if (teachersOf(n.id).some(function (t) { return t.id === S.sel; })) r[n.id] = "student"; });
+    }
+    return r;
+  }
+
+  function cardEl(n, opts) {
+    opts = opts || {};
+    var c = h("div", "card");
+    c.setAttribute("data-card", n.id);
+    c.style.borderLeftColor = colorOf(n);
+    var rel = opts.rel; // 'sel'|'teacher'|'student'|undefined
+    if (rel === "sel") c.classList.add("sel");
+    else if (rel === "teacher") { c.classList.add("relteacher"); c.style.boxShadow = "0 0 0 2px " + colorOf(n); }
+    else if (rel === "student") { c.classList.add("relstudent"); c.style.boxShadow = "0 0 0 1px " + colorOf(n); }
+    if (opts.dim) c.classList.add("dim");
+    c.appendChild(cardInner(n, opts));
+    if (opts.expandInline && opts.open) { c.classList.add("open"); c.appendChild(expandInner(n)); }
+    c.addEventListener("click", function () { opts.onClick ? opts.onClick(n) : toggleSel(n.id); });
+    if (opts.hoverPop) {
+      c.addEventListener("mouseenter", function () { S.hover = n.id; showPop(c, n); });
+      c.addEventListener("mouseleave", function () { S.hover = null; hidePop(); });
+    }
     return c;
   }
 
-  function build() {
-    var root = document.getElementById("app");
-    // header
-    var header = el("header", "hdr");
-    header.innerHTML =
-      '<h1>Генеалогия первых трёх поколений хасидизма</h1>' +
-      '<p class="sub">Кто чей ученик · связи «учитель→ученик» · ' + NODES.length + ' персон · ' + edges.length + ' связей. ' +
-      'Проверка по трём источникам: ивр. Википедия · Chabadpedia · hamichlol.</p>' +
-      '<button class="infoToggle" id="infoToggle">ⓘ о методике и чтении карты</button>' +
-      '<div class="infoBox" id="infoBox">' +
-        '<p><b>Как читать.</b> Строки — поколения. Цвет карточки — ветвь/школа (см. легенду). Сплошная стрелка — <b>главный учитель</b> (каркас дерева); пунктир — дополнительный учитель; точки — родство. По умолчанию видны только главные связи; нажмите на карточку, чтобы раскрыть все связи персоны (учителя вверх, ученики вниз), или включите «показать все связи».</p>' +
-        '<p><b>Почему у многих 3–5 учителей.</b> Ранний хасидизм — сеть, а не система фиксированных «ребе→наследник». Каскад смертей учителей (Бешт 1760, Магид 1772, Элимелех 1787) отправлял учеников к следующему мастеру, поэтому «5 учителей» часто = последовательность во времени. Плюс различали рава по Талмуду и рава по пути служения. Плотная «паутина» сосредоточена в <b>польско-галицийской</b> ветви (Лиженск→Люблин→Риманов→Апта→Козниц), тогда как Хабад, Чернобыль, Карлин, Ружин — чистые цепочки отец→сын. Флажок ⚑ — атрибуция учителя спорна между источниками.</p>' +
-        '<p><b>Оговорка по проверке.</b> В среде сбора три источника почти не открывались для прямого чтения. Поэтому бейджи: <span class="ib" style="background:#1e7e34">В</span> текст прочитан · <span class="ib" style="background:#2980b9">В</span> статья/URL подтверждены · <span class="ib out">В</span> статьи нет · <span class="ib" style="background:#e0a800">В</span> не проверено. Клик по бейджу — переход к статье. Генеалогия сверена с академическим консенсусом; расхождения не сглажены, а помечены (кнопка «!»).</p>' +
-      '</div>';
-    root.appendChild(header);
+  // ---------- interactions ----------
+  function go(id) { S.sel = id; S.open = id; render(); scrollToCard(id); }
+  function toggleSel(id) { if (S.sel === id) { S.sel = null; S.open = null; } else { S.sel = id; S.open = id; } render(); }
+  function scrollToCard(id) { var el = document.querySelector('[data-card="' + id + '"]'); if (el) el.scrollIntoView({ behavior: "smooth", block: "center" }); }
 
-    // controls
-    var controls = el("div", "controls");
-    var legend = el("div", "legend");
-    BRANCH_ORDER.forEach(function (b) {
-      var br = BRANCHES[b]; if (!br) return;
-      var chip = el("button", "chip on");
-      chip.setAttribute("data-branch", b);
-      chip.innerHTML = '<span class="sw" style="background:' + br.color + '"></span>' + esc(br.ru);
-      chip.addEventListener("click", function () {
-        activeBranches[b] = !activeBranches[b];
-        chip.classList.toggle("on", activeBranches[b]);
-        applyFilter();
-      });
-      legend.appendChild(chip);
+  // ---------- popover (wide) ----------
+  var popEl = null;
+  function showPop(anchor, n) {
+    hidePop();
+    var stage = document.getElementById("stage"); if (!stage) return;
+    popEl = h("div", "popover"); popEl.style.borderLeftColor = colorOf(n);
+    popEl.appendChild(expandInner(n));
+    stage.appendChild(popEl);
+    var ar = anchor.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+    popEl.style.left = (ar.left - sr.left + stage.scrollLeft - 3) + "px";
+    popEl.style.top = (ar.top - sr.top + stage.scrollTop + ar.height + 6) + "px";
+    popEl.style.width = (ar.width + 4) + "px";
+  }
+  function hidePop() { if (popEl && popEl.parentNode) popEl.parentNode.removeChild(popEl); popEl = null; }
+
+  // ---------- header / controls ----------
+  function segControl(items, cur, on) {
+    var seg = h("div", "seg");
+    items.forEach(function (it) {
+      var b = h("button", "segbtn" + (it.k === cur ? " active" : ""), it.t);
+      b.addEventListener("click", function () { on(it.k); });
+      seg.appendChild(b);
     });
-    controls.appendChild(legend);
-
-    var right = el("div", "ctl-right");
-    var search = el("input", "search"); search.type = "search"; search.placeholder = "Поиск по имени…";
-    search.addEventListener("input", function () { query = search.value.trim().toLowerCase(); applyFilter(); });
-    right.appendChild(search);
-    var allWrap = el("label", "allWrap");
-    allWrap.innerHTML = '<input type="checkbox" id="showAll"> показать все связи';
-    right.appendChild(allWrap);
-    controls.appendChild(right);
-    root.appendChild(controls);
-
-    // stage (bands + svg overlay)
-    stage = el("div", "stage");
-    svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("class", "edges");
-    stage.appendChild(svg);
-    mapEl = el("div", "map");
-    stage.appendChild(mapEl);
-    root.appendChild(stage);
-
-    [1,2,3,4].forEach(function (g) {
-      var band = el("div", "band");
-      band.appendChild(el("div", "band-title", esc(GEN_TITLES[g])));
-      var grid = el("div", "band-grid");
-      NODES.filter(function (n) { return n.gen === g; })
-        .sort(function (a, b) {
-          var ai = BRANCH_ORDER.indexOf(a.branch), bi = BRANCH_ORDER.indexOf(b.branch);
-          if (ai !== bi) return ai - bi;
-          return a.ru.localeCompare(b.ru, "ru");
-        })
-        .forEach(function (n) { grid.appendChild(makeCard(n)); });
-      band.appendChild(grid);
-      mapEl.appendChild(band);
+    return seg;
+  }
+  function chipRow() {
+    var wrap = h("div", "chips");
+    var vm = visMap();
+    catList().forEach(function (c) {
+      var cnt = N.filter(function (n) { return catKey(n) === c.key; }).length;
+      var on = !S.off[c.key];
+      var chip = h("button", "chip" + (on ? "" : " offc"));
+      var d = h("span", "chdot"); d.style.background = on ? c.color : "rgba(60,60,67,.2)"; chip.appendChild(d);
+      chip.appendChild(h("span", null, c.label));
+      chip.appendChild(h("span", "chcnt", String(cnt)));
+      chip.addEventListener("click", function () { S.off[c.key] = on ? true : false; if (!S.off[c.key]) delete S.off[c.key]; render(); });
+      wrap.appendChild(chip);
     });
-
-    // footer
-    var footer = el("footer", "ftr");
-    footer.innerHTML = 'Источники (слои проверки): <a href="https://he.wikipedia.org" target="_blank" rel="noopener">he.wikipedia.org</a> · <a href="https://chabadpedia.co.il" target="_blank" rel="noopener">chabadpedia.co.il</a> · <a href="https://www.hamichlol.org.il" target="_blank" rel="noopener">hamichlol.org.il</a>. Флажок ⚑ — спорная атрибуция учителя; кнопка «!» на карточке — примечание/расхождение.';
-    root.appendChild(footer);
-
-    document.getElementById("infoToggle").addEventListener("click", function () {
-      document.getElementById("infoBox").classList.toggle("show");
-    });
-    document.getElementById("showAll").addEventListener("change", function (e) { showAll = e.target.checked; redraw(); });
-    stage.addEventListener("click", function (e) { if (e.target === stage || e.target === svg || e.target === mapEl) selectNode(null); });
-
-    window.addEventListener("resize", function () { requestAnimationFrame(redraw); });
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { redraw(); });
-    requestAnimationFrame(redraw);
-    setTimeout(redraw, 300);
+    return wrap;
+  }
+  function searchInput(ph) {
+    var i = h("input", "search"); i.type = "search"; i.placeholder = ph || "Имя, иврит, книга"; i.value = S.q;
+    i.addEventListener("input", function () { S.q = i.value; render(); requestAnimationFrame(function () { var el = document.querySelector(".search"); if (el) { el.focus(); el.setSelectionRange(el.value.length, el.value.length); } }); });
+    return i;
+  }
+  function countText() {
+    var vm = visMap(); var shown = N.filter(function (n) { return vm[n.id]; }).length;
+    var branches = catList().length;
+    if (shown < N.length) return "Показано " + shown + " из " + N.length;
+    return N.length + " персон · 4 поколения · " + branches + " ветвей";
   }
 
-  function centerOf(id, mode) {
-    var c = cardEls[id]; if (!c) return null;
-    var r = c.getBoundingClientRect();
-    var sr = stage.getBoundingClientRect();
-    var x = r.left - sr.left + stage.scrollLeft + r.width / 2;
-    var topY = r.top - sr.top + stage.scrollTop;
-    var botY = topY + r.height;
-    return { x: x, top: topY, bottom: botY, midY: topY + r.height / 2 };
-  }
-
-  function path(a, b) {
-    // a=teacher, b=student. Prefer teacher bottom -> student top when teacher above.
-    var x1 = a.x, x2 = b.x, y1, y2;
-    if (a.midY <= b.midY) { y1 = a.bottom; y2 = b.top; }
-    else { y1 = a.top; y2 = b.bottom; }
-    var dy = (y2 - y1);
-    var c1 = y1 + dy * 0.45, c2 = y2 - dy * 0.45;
-    return "M" + x1 + "," + y1 + " C" + x1 + "," + c1 + " " + x2 + "," + c2 + " " + x2 + "," + y2;
-  }
-
-  function nodeVisible(n) {
-    if (!activeBranches[n.branch]) return false;
-    if (query && n.ru.toLowerCase().indexOf(query) === -1 && (n.he||"").toLowerCase().indexOf(query) === -1) return false;
-    return true;
-  }
-
-  function redraw() {
-    if (!stage) return;
-    // size svg to content
-    svg.setAttribute("width", mapEl.scrollWidth);
-    svg.setAttribute("height", mapEl.scrollHeight);
-    svg.setAttribute("viewBox", "0 0 " + mapEl.scrollWidth + " " + mapEl.scrollHeight);
-    while (svg.firstChild) svg.removeChild(svg.firstChild);
-
-    var egoTeachers = {}, egoStudents = {};
-    if (selected) {
-      (byId[selected].teachers || []).forEach(function (t) { if (byId[t.t]) egoTeachers[t.t] = t; });
-      (studentsOf[selected] || []).forEach(function (s) { egoStudents[s.id] = s; });
+  // ---------- MOBILE: Tree ----------
+  function viewTree() {
+    var wrap = h("div", "mwrap");
+    var vm = visMap(), rs = relSet();
+    var roots = N.filter(function (n) { return !n.m; }).sort(function (a, b) { return birth(a) - birth(b); });
+    function node(n, level) {
+      if (!vm[n.id]) return null;
+      var row = h("div", "trow"); row.style.paddingLeft = (level * 18) + "px";
+      for (var i = 0; i < level; i++) { var rail = h("span", "rail"); rail.style.left = (8 + i * 18) + "px"; rail.style.background = "rgba(60,60,67,.28)"; row.appendChild(rail); }
+      var opts = { chevron: true, open: S.open === n.id, branch: true, also: true, expandInline: true, rel: S.sel === n.id ? "sel" : rs[n.id], dim: false, onClick: function (x) { toggleSel(x.id); } };
+      var c = cardEl(n, opts); row.appendChild(c);
+      var box = h("div"); box.appendChild(row);
+      var kids = N.filter(function (x) { return x.m && x.m.id === n.id && vm[x.id]; }).sort(function (a, b) { return birth(a) - birth(b); });
+      kids.forEach(function (k) { var kn = node(k, level + 1); if (kn) box.appendChild(kn); });
+      return box;
     }
+    roots.forEach(function (r) { var rn = node(r, 0); if (rn) wrap.appendChild(rn); });
+    return wrap;
+  }
 
-    edges.forEach(function (e) {
-      var tn = byId[e.from], sn = byId[e.to];
-      if (!nodeVisible(tn) || !nodeVisible(sn)) return;
-      var incident = selected && (e.from === selected || e.to === selected);
-      var isMain = e.k === "main";
-      if (!selected) { if (!showAll && !isMain) return; }
-      else { if (!incident && !showAll && !isMain) return; }
+  // ---------- MOBILE: List ----------
+  function viewList() {
+    var wrap = h("div", "mwrap");
+    var vm = visMap(), rs = relSet();
+    GENS.forEach(function (gg) {
+      var inGen = N.filter(function (n) { return n.g === gg.n && vm[n.id]; });
+      if (!inGen.length) return;
+      var gh = h("div", "genhdr");
+      gh.appendChild(h("span", "ghn", "Пок. " + gg.n));
+      gh.appendChild(h("span", "ghmeta", gg.label + " · " + gg.meta));
+      gh.appendChild(h("span", "ghcnt", String(inGen.length)));
+      wrap.appendChild(gh);
+      branchOrder().forEach(function (bk) {
+        var inBr = inGen.filter(function (n) { return catKey(n) === bk; }).sort(function (a, b) { return birth(a) - birth(b); });
+        if (!inBr.length) return;
+        var cat = catList().find(function (c) { return c.key === bk; });
+        var bh = h("div", "brhdr");
+        var d = h("span", "bdot"); d.style.background = cat.color; bh.appendChild(d);
+        bh.appendChild(h("span", null, cat.label)); wrap.appendChild(bh);
+        inBr.forEach(function (n) {
+          wrap.appendChild(cardEl(n, { chevron: true, open: S.open === n.id, branch: false, also: true, expandInline: true, rel: S.sel === n.id ? "sel" : rs[n.id], dim: false, onClick: function (x) { toggleSel(x.id); } }));
+        });
+      });
+    });
+    return wrap;
+  }
 
-      var a = centerOf(e.from), b = centerOf(e.to);
-      if (!a || !b) return;
-      var p = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      p.setAttribute("d", path(a, b));
-      p.setAttribute("fill", "none");
-      var col, w, op, dash = "";
-      var col0 = (BRANCHES[sn.branch] || {}).color || "#888";
-      if (selected && incident) {
-        col = col0; w = 2.6; op = 0.95;
-        if (e.k === "sec") dash = "6,4"; else if (e.k === "fam") dash = "1,5";
-      } else if (selected) {
-        col = "#c7ccd4"; w = 1; op = 0.28;
-        if (!isMain) dash = "4,4";
+  // ---------- OVERVIEW (mobile + wide) ----------
+  function viewOverview(wide) {
+    var wrap = h("div", "ovwrap");
+    var VB = wide ? { w: 1000, hh: 760, Y: { 1: 120, 2: 320, 3: 530, 4: 700 }, xL: 110, xW: 860, r: 9, hub: 11.25, selR: 13.5, tap: 18, stroke: 2, mw: 1.6, ow: 1.1 }
+                  : { w: 1000, hh: 1520, Y: { 1: 190, 2: 620, 3: 1080, 4: 1410 }, xL: 60, xW: 910, r: 22, hub: 27.5, selR: 33, tap: 60, stroke: 6, mw: 4, ow: 3 };
+    var vm = visMap();
+    var pos = {};
+    [1, 2, 3, 4].forEach(function (g) {
+      var arr = N.filter(function (n) { return n.g === g; }).sort(function (a, b) {
+        var ai = branchOrder().indexOf(catKey(a)), bi = branchOrder().indexOf(catKey(b));
+        return ai !== bi ? ai - bi : birth(a) - birth(b);
+      });
+      arr.forEach(function (n, i) { pos[n.id] = { x: VB.xL + (i + 0.5) * (VB.xW / arr.length), y: VB.Y[g] }; });
+    });
+    var box = h("div", "ovbox");
+    var s = svg("svg"); s.setAttribute("viewBox", "0 0 " + VB.w + " " + VB.hh); s.setAttribute("class", "ovsvg");
+    // gen lines
+    [1, 2, 3, 4].forEach(function (g) {
+      var ln = svg("line"); ln.setAttribute("x1", 40); ln.setAttribute("x2", VB.w - 40); ln.setAttribute("y1", VB.Y[g] - (wide ? 70 : 110)); ln.setAttribute("y2", VB.Y[g] - (wide ? 70 : 110));
+      ln.setAttribute("stroke", "rgba(60,60,67,.16)"); ln.setAttribute("stroke-width", 2.5); s.appendChild(ln);
+    });
+    // edges
+    EDGES.forEach(function (e) {
+      var A = pos[e.f], B = pos[e.t]; if (!A || !B || !vm[e.f] || !vm[e.t]) return;
+      var touch = S.sel && (e.f === S.sel || e.t === S.sel);
+      if (!touch && !S.all && !e.main) return;
+      if (S.sel && !touch && !S.all) return;
+      var r = VB.r, dy = Math.max(wide ? 30 : 80, (B.y - A.y) / 2);
+      var d;
+      if (B.y > A.y) d = "M" + A.x + " " + (A.y + r) + " C" + A.x + " " + (A.y + r + dy) + ", " + B.x + " " + (B.y - r - dy) + ", " + B.x + " " + (B.y - r);
+      else { var mid = (A.x + B.x) / 2; d = "M" + A.x + " " + (A.y + r) + " Q" + mid + " " + (A.y + r + 80) + " " + B.x + " " + (B.y + r); }
+      var p = svg("path"); p.setAttribute("d", d); p.setAttribute("fill", "none");
+      var col = "rgba(60,60,67,.55)", w = e.main ? VB.mw : VB.ow, op = e.main ? 0.5 : 0.28, dash = e.main ? "" : (wide ? "5 4" : "12 9");
+      if (touch) { var isT = e.t === S.sel; col = colorOf(byId[isT ? e.f : e.t]); w = wide ? 3 : 7; op = 0.95; }
+      else if (S.sel) { op = 0.08; }
+      p.setAttribute("stroke", col); p.setAttribute("stroke-width", w); p.setAttribute("opacity", op); if (dash) p.setAttribute("stroke-dasharray", dash);
+      s.appendChild(p);
+    });
+    // nodes
+    N.forEach(function (n) {
+      var P = pos[n.id]; if (!P) return;
+      var deg = degree(n.id); var r = S.sel === n.id ? VB.selR : (deg >= 4 ? VB.hub : VB.r);
+      var vis = vm[n.id]; var g = svg("g");
+      var dot = svg("circle"); dot.setAttribute("cx", P.x); dot.setAttribute("cy", P.y); dot.setAttribute("r", r);
+      dot.setAttribute("fill", colorOf(n)); dot.setAttribute("stroke", "#F2F2F7"); dot.setAttribute("stroke-width", wide ? 2 : 6);
+      var op = 1;
+      if (!vis) op = 0.12; else if (S.sel) { var rs = relSet(); if (S.sel !== n.id && !rs[n.id]) op = 0.22; }
+      dot.setAttribute("opacity", op); g.appendChild(dot);
+      var hit = svg("circle"); hit.setAttribute("cx", P.x); hit.setAttribute("cy", P.y); hit.setAttribute("r", VB.tap); hit.setAttribute("fill", "transparent"); hit.style.cursor = "pointer";
+      hit.addEventListener("click", function () { toggleSel(n.id); }); g.appendChild(hit);
+      s.appendChild(g);
+    });
+    box.appendChild(s);
+    // HTML overlays: gen labels + hub names (wide)
+    var ov = h("div", "ovlabels");
+    [1, 2, 3, 4].forEach(function (g) {
+      var gg = GENS[g - 1]; var lb = h("div", "genlab", gg.label);
+      lb.style.left = "50%"; lb.style.top = ((VB.Y[g] - (wide ? 70 : 110)) / VB.hh * 100) + "%"; ov.appendChild(lb);
+    });
+    if (wide) {
+      N.forEach(function (n) { if (degree(n.id) >= 4) { var P = pos[n.id]; var hb = h("div", "hublab", n.ru.split(" (")[0].split(",")[0]); hb.style.left = (P.x / VB.w * 100) + "%"; hb.style.top = ((P.y - 26) / VB.hh * 100) + "%"; ov.appendChild(hb); } });
+    }
+    box.appendChild(ov);
+    wrap.appendChild(box);
+    // selected panel (mobile)
+    if (!wide && S.sel) {
+      var n = byId[S.sel]; var panel = h("div", "ovpanel"); panel.style.borderLeftColor = colorOf(n);
+      var r1 = h("div", "oprow"); r1.appendChild(h("span", "opname", n.ru)); r1.appendChild(h("span", "opyear", (n.y || "").replace(/-/g, "–"))); panel.appendChild(r1);
+      panel.appendChild(branchTag(n));
+      var mv = h("div", "cmuv"); mv.appendChild(h("span", "mlbl", n.m ? "МУВХАК" : "МУВХАК —")); mv.appendChild(h("span", "mval", n.m ? nameOf(n.m.id) + (n.m.rel ? " · " + n.m.rel : "") : "не установлен")); panel.appendChild(mv);
+      var btns = h("div", "opbtns");
+      var b1 = h("button", "opopen", "Открыть в древе"); b1.addEventListener("click", function () { S.mview = "tree"; render(); scrollToCard(n.id); }); btns.appendChild(b1);
+      var b2 = h("button", "opclose", "✕"); b2.addEventListener("click", function () { S.sel = null; render(); }); btns.appendChild(b2);
+      panel.appendChild(btns); wrap.appendChild(panel);
+    }
+    return wrap;
+  }
+
+  // ---------- WIDE: Rows ----------
+  function viewRows(lanes) {
+    var stage = h("div", "stage"); stage.id = "stage";
+    var edgesSvg = svg("svg"); edgesSvg.setAttribute("class", "edges"); edgesSvg.id = "edgesvg"; stage.appendChild(edgesSvg);
+    var grid = h("div", "rowsgrid");
+    var vm = visMap(), rs = relSet();
+    if (!lanes) {
+      GENS.forEach(function (gg) {
+        var inGen = N.filter(function (n) { return n.g === gg.n; });
+        if (!inGen.length) return;
+        var row = h("div", "genrow");
+        var lab = h("div", "genlabel");
+        lab.appendChild(h("div", "gln", "Пок. " + gg.n));
+        lab.appendChild(h("div", "gllabel", gg.label));
+        lab.appendChild(h("div", "glmeta", gg.meta + " · " + inGen.length));
+        row.appendChild(lab);
+        var body = h("div", "genbody");
+        branchOrder().forEach(function (bk) {
+          var inBr = inGen.filter(function (n) { return catKey(n) === bk; }).sort(function (a, b) { return birth(a) - birth(b); });
+          if (!inBr.length) return;
+          var cat = catList().find(function (c) { return c.key === bk; });
+          var col = h("div", "subcol");
+          var sh = h("div", "subhdr"); var d = h("span", "bdot"); d.style.background = cat.color; sh.appendChild(d);
+          sh.appendChild(h("span", "subttl", cat.label)); sh.appendChild(h("span", "subcnt", String(inBr.length))); col.appendChild(sh);
+          inBr.forEach(function (n) {
+            col.appendChild(cardEl(n, { wide: true, hoverPop: true, rel: S.sel === n.id ? "sel" : rs[n.id], dim: !vm[n.id], onClick: function (x) { toggleSel(x.id); } }));
+          });
+          body.appendChild(col);
+        });
+        row.appendChild(body); grid.appendChild(row);
+      });
+    } else {
+      branchOrder().forEach(function (bk) {
+        var inBr = N.filter(function (n) { return catKey(n) === bk; });
+        if (!inBr.length) return;
+        var cat = catList().find(function (c) { return c.key === bk; });
+        var lane = h("div", "lane");
+        var lh = h("div", "lanehdr"); lh.style.borderBottomColor = cat.color;
+        lh.appendChild(h("span", "lanettl", cat.label)); lh.appendChild(h("span", "subcnt", String(inBr.length))); lane.appendChild(lh);
+        GENS.forEach(function (gg) {
+          var g = inBr.filter(function (n) { return n.g === gg.n; }).sort(function (a, b) { return birth(a) - birth(b); });
+          if (!g.length) return;
+          var band = h("div", "laneband"); band.appendChild(h("div", "microlbl", "ПОК. " + gg.n));
+          g.forEach(function (n) { band.appendChild(cardEl(n, { wide: true, hoverPop: true, rel: S.sel === n.id ? "sel" : rs[n.id], dim: !vm[n.id], onClick: function (x) { toggleSel(x.id); } })); });
+          lane.appendChild(band);
+        });
+        grid.appendChild(lane);
+      });
+      grid.classList.add("laneswrap");
+    }
+    stage.appendChild(grid);
+    requestAnimationFrame(function () { drawRowEdges(); });
+    return stage;
+  }
+
+  function drawRowEdges() {
+    var stage = document.getElementById("stage"), s = document.getElementById("edgesvg"); if (!stage || !s) return;
+    while (s.firstChild) s.removeChild(s.firstChild);
+    s.setAttribute("width", stage.scrollWidth); s.setAttribute("height", stage.scrollHeight);
+    var cr = stage.getBoundingClientRect(), box = {};
+    stage.querySelectorAll("[data-card]").forEach(function (el) {
+      var r = el.getBoundingClientRect();
+      box[el.getAttribute("data-card")] = { x: r.left - cr.left + stage.scrollLeft, y: r.top - cr.top + stage.scrollTop, w: r.width, h: r.height };
+    });
+    var vm = visMap();
+    EDGES.forEach(function (e) {
+      var A = box[e.f], B = box[e.t]; if (!A || !B || !vm[e.f] || !vm[e.t]) return;
+      var touch = S.sel && (e.f === S.sel || e.t === S.sel);
+      if (!touch && !S.all && !e.main) return;
+      if (S.sel && !touch && !S.all) return;
+      var d;
+      if (B.y > A.y + A.h - 4) {
+        var x1 = A.x + A.w / 2, y1 = A.y + A.h, x2 = B.x + B.w / 2, y2 = B.y, dy = Math.max(18, (y2 - y1) / 2);
+        d = "M" + x1 + " " + y1 + " C" + x1 + " " + (y1 + dy) + ", " + x2 + " " + (y2 - dy) + ", " + x2 + " " + y2;
       } else {
-        col = isMain ? "#9aa2ad" : "#c7ccd4"; w = isMain ? 1.4 : 1; op = isMain ? 0.5 : 0.3;
-        if (e.k === "sec") dash = "6,4"; else if (e.k === "fam") dash = "1,5";
+        var rightward = B.x > A.x; var x1b = rightward ? A.x + A.w : A.x, y1b = A.y + A.h / 2, x2b = rightward ? B.x : B.x + B.w, y2b = B.y + B.h / 2;
+        var dx = Math.max(28, Math.abs(x2b - x1b) / 2) * (rightward ? 1 : -1);
+        d = "M" + x1b + " " + y1b + " C" + (x1b + dx) + " " + y1b + ", " + (x2b - dx) + " " + y2b + ", " + x2b + " " + y2b;
       }
-      p.setAttribute("stroke", col);
-      p.setAttribute("stroke-width", w);
-      p.setAttribute("opacity", op);
-      if (dash) p.setAttribute("stroke-dasharray", dash);
-      svg.appendChild(p);
-    });
-
-    // card highlight states
-    NODES.forEach(function (n) {
-      var c = cardEls[n.id]; if (!c) return;
-      c.classList.remove("sel","rel-teacher","rel-student","dim","hidden");
-      if (!nodeVisible(n)) { c.classList.add("hidden"); return; }
-      if (selected) {
-        if (n.id === selected) c.classList.add("sel");
-        else if (egoTeachers[n.id]) c.classList.add("rel-teacher");
-        else if (egoStudents[n.id]) c.classList.add("rel-student");
-        else c.classList.add("dim");
-      }
+      var stroke = "rgba(60,60,67,.45)", w = 1, dash = "", op = 0.7;
+      if (touch) { var isT = e.t === S.sel; stroke = colorOf(byId[isT ? e.f : e.t]); w = isT ? 2 : 1.5; dash = isT ? "" : "4 3"; op = 0.95; }
+      else if (!e.main) { op = 0.3; dash = "3 3"; }
+      var p = svg("path"); p.setAttribute("d", d); p.setAttribute("fill", "none"); p.setAttribute("stroke", stroke); p.setAttribute("stroke-width", w); p.setAttribute("opacity", op); if (dash) p.setAttribute("stroke-dasharray", dash);
+      s.appendChild(p);
     });
   }
 
-  function selectNode(id) {
-    selected = id;
-    redraw();
-    if (id && cardEls[id]) cardEls[id].scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-  }
-  function applyFilter() { redraw(); }
+  // ---------- render ----------
+  function render() {
+    hidePop();
+    var app = document.getElementById("app"); app.innerHTML = "";
+    var wide = isWide(); var view = curView();
+    var root = h("div", wide ? "wide" : "mobile");
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", build);
-  else build();
+    // nav
+    var nav = h("div", "nav");
+    var titleRow = h("div", "titlerow");
+    titleRow.appendChild(h("h1", "title", wide ? "Генеалогия хасидизма" : (view === "overview" ? "Обзор" : view === "tree" ? "Древо" : "Генеалогия")));
+    if (wide) {
+      var tools = h("div", "tools");
+      tools.appendChild(searchInput("Поиск"));
+      var allBtn = h("button", "toolbtn" + (S.all ? " on" : ""), "все связи"); allBtn.addEventListener("click", function () { S.all = !S.all; render(); }); tools.appendChild(allBtn);
+      var rst = h("button", "toolbtn", "сброс"); rst.addEventListener("click", reset); tools.appendChild(rst);
+      titleRow.appendChild(tools);
+    }
+    nav.appendChild(titleRow);
+    nav.appendChild(h("div", "submeta", countText()));
+    if (!wide) nav.appendChild(searchInput());
+    nav.appendChild(chipRow());
+    var seg = wide
+      ? segControl([{ k: "rows", t: "Ряды" }, { k: "lanes", t: "Дорожки" }, { k: "overview", t: "Обзор" }], S.wview, function (k) { S.wview = k; render(); })
+      : segControl([{ k: "overview", t: "Обзор" }, { k: "tree", t: "Древо" }, { k: "list", t: "Список" }], S.mview, function (k) { S.mview = k; render(); });
+    nav.appendChild(seg);
+    root.appendChild(nav);
+
+    // body
+    var body;
+    if (view === "overview") body = viewOverview(wide);
+    else if (view === "tree") body = viewTree();
+    else if (view === "list") body = viewList();
+    else if (view === "rows") body = viewRows(false);
+    else if (view === "lanes") body = viewRows(true);
+    root.appendChild(body);
+
+    if (wide && (view === "rows" || view === "lanes")) {
+      var hint = h("div", "hint", S.sel ? (byId[S.sel].ru + " — учителя цветом, ученики пунктиром") : "Клик — связи, наведение — детали");
+      root.appendChild(hint);
+    }
+    app.appendChild(root);
+  }
+  function reset() { S.sel = null; S.open = null; S.q = ""; S.off = {}; S.all = false; render(); }
+
+  var rt;
+  window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(function () { render(); }, 120); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { S.sel = null; S.open = null; render(); } });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", render); else render();
 })();
 </script>
 </body>
