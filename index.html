@@ -3,311 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генеалогия хасидских школ: от Бешта до XXI века</title>
+    <title>Карта Преемственности Хасидских Школ</title>
     <style>
         :root {
             --bg-color: #f4f6f9;
             --card-bg: #ffffff;
             --text-main: #2c3e50;
-            --text-muted: #7f8c8d;
-            --line-color: #bdc3c7;
-            --accent-1: #2980b9; /* Польша-Галиция */
-            --accent-2: #27ae60; /* Венгрия */
-            --accent-3: #8e44ad; /* Хабад */
-            --accent-4: #d35400; /* Ружин */
-            --accent-5: #16a085; /* Брацлав */
-            --accent-6: #f39c12; /* Литва */
+            --border-color: #dcdde1;
+            
+            --color-besht: #2c3e50;
+            --color-magid: #34495e;
+            --color-habad: #00a8ff;
+            --color-satmar: #e84118;
+            --color-belz: #4cd137;
+            --color-gur: #9c88ff;
+            --color-ruzhin: #fbc531;
+            --color-bratslav: #e15f41;
+            --color-karlin: #487eb0;
+            --color-chernobyl: #10ac84;
         }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            line-height: 1.4;
         }
-        h1 {
-            text-align: center;
-            margin-bottom: 5px;
-            font-size: 24px;
-        }
-        .subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            font-size: 14px;
-        }
-        .tree-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
+
+        .container {
             max-width: 1200px;
-        }
-        .generation-layer {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        .node {
-            background: var(--card-bg);
-            border: 2px solid var(--line-color);
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            text-align: center;
-            min-width: 200px;
-            max-width: 280px;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        .node:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-        }
-        .node-title {
-            font-weight: bold;
-            font-size: 15px;
-            margin-bottom: 5px;
-        }
-        .node-meta {
-            font-size: 12px;
-            color: var(--text-muted);
-            border-top: 1px solid #eee;
-            padding-top: 5px;
-            margin-top: 5px;
-        }
-        .branches-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-            width: 100%;
-        }
-        .branch-column {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-radius: 8px;
-            padding: 10px;
-            background: rgba(255,255,255,0.4);
-        }
-        .branch-layer-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin: 15px 0 5px 0;
-            font-weight: bold;
-        }
-        /* Цветовое кодирование веток */
-        .br-poland { border-color: var(--accent-1); border-top-width: 6px; }
-        .br-hungary { border-color: var(--accent-2); border-top-width: 6px; }
-        .br-chabad { border-color: var(--accent-3); border-top-width: 6px; }
-        .br-ruzhin { border-color: var(--accent-4); border-top-width: 6px; }
-        .br-bratslav { border-color: var(--accent-5); border-top-width: 6px; }
-        .br-lithuania { border-color: var(--accent-6); border-top-width: 6px; }
-        
-        .connector-v {
-            width: 2px;
-            height: 40px;
-            background-color: var(--line-color);
             margin: 0 auto;
         }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .generation-section {
+            margin-bottom: 40px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .gen-title {
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            padding: 18px;
+            border-radius: 8px;
+            border-left: 5px solid #ccc;
+            background: #fafafa;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 4px;
+            font-size: 1.15rem;
+        }
+        
+        .hebrew-name {
+            font-size: 0.95rem;
+            color: #7f8c8d;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .years {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #e67e22;
+            margin-bottom: 10px;
+        }
+
         .badge {
             display: inline-block;
-            padding: 2px 6px;
+            padding: 3px 8px;
+            font-size: 0.8rem;
+            background: #eee;
             border-radius: 4px;
-            font-size: 11px;
-            font-weight: bold;
-            color: #fff;
-            margin-top: 5px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            width: fit-content;
         }
-        .bg-p { background-color: var(--accent-1); }
-        .bg-h { background-color: var(--accent-2); }
-        .bg-ch { background-color: var(--accent-3); }
-        .bg-r { background-color: var(--accent-4); }
-        .bg-b { background-color: var(--accent-5); }
-        .bg-l { background-color: var(--accent-6); }
+
+        .badge-qty {
+            background: #27ae60;
+            color: #fff;
+        }
+
+        .meta-info {
+            font-size: 0.9rem;
+            color: #34495e;
+            margin: 5px 0;
+        }
+
+        .books-block {
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.85rem;
+            color: #2c3e50;
+        }
+        
+        .books-block strong {
+            color: #c0392b;
+        }
+
+        /* Цвета веток */
+        .branch-besht { border-left-color: var(--color-besht); }
+        .branch-magid { border-left-color: var(--color-magid); }
+        .branch-habad { border-left-color: var(--color-habad); }
+        .branch-satmar { border-left-color: var(--color-satmar); }
+        .branch-belz { border-left-color: var(--color-belz); }
+        .branch-gur { border-left-color: var(--color-gur); }
+        .branch-ruzhin { border-left-color: var(--color-ruzhin); }
+        .branch-bratslav { border-left-color: var(--color-bratslav); }
+        .branch-karlin { border-left-color: var(--color-karlin); }
+        .branch-chernobyl { border-left-color: var(--color-chernobyl); }
     </style>
 </head>
 <body>
 
-    <h1>Генеалогия и преемственность хасидских школ</h1>
-    <div class="subtitle">Интерактивная карта связей: от Баал Шем Това (Бешта) до крупных дворов XXI века</div>
+<div class="container">
+    <h1>Генеалогическая карта хасидских школ</h1>
+    <div class="subtitle">Академический справочник преемственности с первоисточниками</div>
 
-    <div class="tree-container">
-        
-        <!-- Поколение 1 -->
-        <div class="generation-layer">
-            <div class="node" style="border-color: #2c3e50; border-top-width: 6px;">
-                <div class="node-title">1. Баал Шем Тов (Бешт)</div>
-                <div style="font-size: 13px; color: var(--text-muted);">Основоположник движения</div>
-                <div class="node-meta">
-                    📍 Меджибож (Подолия)<br>
-                    👥 Единичные последователи
+    <!-- 1 Поколение -->
+    <div class="generation-section">
+        <div class="gen-title">Поколение 1: Истоки хасидизма (До 1760 гг.)</div>
+        <div class="grid">
+            <div class="card branch-besht">
+                <div>
+                    <h3>Рабби Исраэль Баал Шем Тов (Бешт)</h3>
+                    <div class="hebrew-name">רבי ישראל בעל שם טוב</div>
+                    <div class="years">5458 – 5520 (1698 – 1760 гг.)</div>
+                    <span class="badge">Основоположник движения</span>
+                    <div class="meta-info"><strong>Центр:</strong> Меджибож (Подолия)</div>
+                </div>
+                <div class="books-block">
+                    <strong>Ключевые книги:</strong> «Шивхей а-Бешт» (שבחי הבעש"ט — биографические предания), «Кетер Шем Тов» (כתр שם טוב — антология изречений).
                 </div>
             </div>
         </div>
-
-        <div class="connector-v" style="height: 30px;"></div>
-
-        <!-- Поколение 2 -->
-        <div class="generation-layer">
-            <div class="node" style="border-color: #34495e; border-top-width: 6px;">
-                <div class="node-title">2. Великий Магид из Межирича</div>
-                <div style="font-size: 13px; color: var(--text-muted);">Систематизатор и организатор</div>
-                <div class="node-meta">
-                    📍 Межирич (Волынь)<br>
-                    👥 Сотни последователей
-                </div>
-            </div>
-        </div>
-
-        <div class="connector-v" style="height: 30px; width: 90%; background: none; border-top: 2px solid var(--line-color);"></div>
-
-        <!-- Сетка веток (Поколение 3, XIX-XX вв, XXI в) -->
-        <div class="branches-grid">
-            
-            <!-- Ветвь 1: Гур / Польша -->
-            <div class="branch-column">
-                <div class="branch-layer-title">Поколение 3</div>
-                <div class="node br-poland">
-                    <div class="node-title">Р. Элимелих из Лиженска</div>
-                    <div class="node-meta">📍 Лиженск (Галиция)</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XIX-XX века</div>
-                <div class="node br-poland">
-                    <div class="node-title">Провидец из Люблина → Школа Коцка</div>
-                    <div class="node-meta">Развитие польского аскетизма</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XXI век</div>
-                <div class="node br-poland">
-                    <div class="node-title">Двор ГУР</div>
-                    <div class="badge bg-p">~15 000 בתי אב</div>
-                    <div class="node-meta">📍 Иерусалим, Ашдод</div>
-                </div>
-            </div>
-
-            <!-- Ветвь 2: Сатмар / Белз -->
-            <div class="branch-column">
-                <div class="branch-layer-title">Поколение 3</div>
-                <div class="node br-hungary">
-                    <div class="node-title">Р. Элимелих / Ученики Люблина</div>
-                    <div class="node-meta">📍 Галиция / Венгрия</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XIX-XX века</div>
-                <div class="node br-hungary">
-                    <div class="node-title">Династии Тейтельбаум и Рокеах</div>
-                    <div class="node-meta">Консервативное крыло</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XXI век</div>
-                <div class="node br-hungary">
-                    <div class="node-title">САТМАР и БЕЛЗ</div>
-                    <div class="badge bg-h">Сатмар: ~30 000 бт"ав</div>
-                    <div class="badge bg-h" style="background-color:#1abc9c">Белз: ~10 000 бт"ав</div>
-                    <div class="node-meta">📍 Нью-Йорк, Иерусалим</div>
-                </div>
-            </div>
-
-            <!-- Ветвь 3: Хабад -->
-            <div class="branch-column">
-                <div class="branch-layer-title">Поколение 3</div>
-                <div class="node br-chabad">
-                    <div class="node-title">Р. Шнеур Залман (Алтер Ребе)</div>
-                    <div class="node-meta">📍 Ляды (Беларусь)</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XIX-XX века</div>
-                <div class="node br-chabad">
-                    <div class="node-title">Династия Шнеерсонов</div>
-                    <div class="node-meta">📍 Любавичи. Интеллектуальный хасидизм</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XXI век</div>
-                <div class="node br-chabad">
-                    <div class="node-title">ХАБАД Любавич</div>
-                    <div class="badge bg-ch">~50 000 бт"ав</div>
-                    <div class="node-meta">📍 Нью-Йорк, Кфар-Хабад, Мир</div>
-                </div>
-            </div>
-
-            <!-- Ветвь 4: Чернобыль / Вижниц -->
-            <div class="branch-column">
-                <div class="branch-layer-title">Поколение 3</div>
-                <div class="node br-ruzhin" style="border-color: var(--accent-1);">
-                    <div class="node-title">Р. Менахем Нахум Чернобыльский</div>
-                    <div class="node-meta">📍 Чернобыль (Украина)</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XIX-XX века</div>
-                <div class="node br-ruzhin" style="border-color: var(--accent-1);">
-                    <div class="node-title">Династия Тверских / Вижниц</div>
-                    <div class="node-meta">Украинский эмоциональный стиль</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XXI век</div>
-                <div class="node br-ruzhin" style="border-color: var(--accent-1);">
-                    <div class="node-title">ВИЖНИЦ и СКВИРА</div>
-                    <div class="badge bg-p" style="background-color: #2980b9;">~15 000 бт"ав</div>
-                    <div class="node-meta">📍 Бней-Брак, Нью-Сквира</div>
-                </div>
-            </div>
-
-            <!-- Ветвь 5: Ружин -->
-            <div class="branch-column">
-                <div class="branch-layer-title">Поколение 3</div>
-                <div class="node br-ruzhin">
-                    <div class="node-title">Р. Авраам а-Малах</div>
-                    <div class="node-meta">📍 Фастов (Сын Магида)</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XIX-XX века</div>
-                <div class="node br-ruzhin">
-                    <div class="node-title">Р. Исраэль из Ружина</div>
-                    <div class="node-meta">📍 Садгора. Королевский хасидизм</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XXI век</div>
-                <div class="node br-ruzhin">
-                    <div class="node-title">БОЯН и САДГОРА</div>
-                    <div class="badge bg-r">~5 000 бт"ав</div>
-                    <div class="node-meta">📍 Иерусалим, Бней-Брак</div>
-                </div>
-            </div>
-
-            <!-- Ветвь 6: Брацлав -->
-            <div class="branch-column">
-                <div class="branch-layer-title">Поколение 3</div>
-                <div class="node br-bratslav">
-                    <div class="node-title">Р. Нахман из Брацлава</div>
-                    <div class="node-meta">📍 Брацлав (Внук Бешта)</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XIX-XX века</div>
-                <div class="node br-bratslav">
-                    <div class="node-title">Развитие общин без живого Ребе</div>
-                    <div class="node-meta">Фокус на уединенную молитву</div>
-                </div>
-                <div class="connector-v"></div>
-                <div class="branch-layer-title">XXI век</div>
-                <div class="node br-bratslav">
-                    <div class="node-title">БРАЦЛАВСКИЙ хасидизм</div>
-                    <div class="badge bg-b">~35 000-40 000 бт"ав</div>
-                    <div class="node-meta">📍 Иерусалим, Умань</div>
-                </div>
-            </div>
-
-        </div>
-
     </div>
 
-</body>
-</html>
+    <!-- 2 Поколение -->
+    <div class="generation-section">
+        <div class="gen-title">Поколение 2: Систематизация общин (1760–1772 гг.)</div>
+        <div class="grid">
+            <div class="card branch-magid">
+                <div>
+                    <h3>Рабби Дов Бер из Межирича (Великий Магид)</h3>
+                    <div class="hebrew-name">רבי דב בער ממזריטש</div>
+                    <div class="years">5464 – 5533 (1704 – 1772 гг.)</div>
+                    <span class="badge">Главный преемник и организатор</span>
+                    <div class="meta-info"><strong>Учитель:</strong> Баал Шем Тов</div>
+                    <div class="meta-info"><strong>Центр:</strong> Межирич (Волынь)</div>
+                </div>
+                <div class="books-block">
+                    <strong>Ключевые книги:</strong> «Магид Деварив Ле-Яаков» (מגיד דבריו ליעקב — записано его учениками), «Ор Тора» (אור תורה).
+                </div>
+            </div>
+            
+            <div class="card branch-besht">
+                <div>
+                    <h3>Рабби Яаков Йосеф из Полонного</h3>
+                    <div class="hebrew-name">רבי יעקב יוסף מפולנאה</div>
+                    <div class="years">5470 – 5542 (1710 – 1782 гг.)</div>
+                    <span class="badge">Главный идеолог и теолог</span>
+                    <div class="meta-info"><strong>Учитель:</strong> Баал Шем Тов напрямую</div>
+                    <div class="meta-info"><strong>Центр:</strong> Полонное (Волынь)</div>
+                </div>
+                <div class="books-block">
+                    <strong>Ключевые книги:</strong> «Толдот Яаков Йосеф» (תולדות יעקב יוסף — первая печатная хасидская книга, 1780 г.), «Бен Порат Йосеф» (בן פורת יוסף).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3 Поколение -->
+    <div class="generation-section">
+        <div class="gen-title">Поколение 3: Формирование независимых школ (Конец XVIII в.)</div>
+        <div class="grid">
+            <div class="card branch-gur">
+                <div>
+                    <h3>Рабби Элимелих из Лиженска</h3>
+                    <div class="hebrew-name">רבי אלימלך מליז'נסק</div>
+                    <div class="years">5477 – 5547 (1717 – 1787 гг.)</div>
+                    <span class="badge">Польско-Галицийская школа</span>
+                    <div class="meta-info"><strong>Учитель:</strong> Магид из Межирича</div>
+                    <div class="meta-info"><strong>Центр:</strong> Лиженск (Галиция)</div>
+                </div>
+                <div class="books-block">
+                    <strong>Ключевые книги:</strong> «Ноам Элимелех» (נועם אלימלך — заложила основы доктрины практического цадикизма).
+                </div>
+            </div>
+            
+            <div class="card branch-habad">
+                <div>
+                    <h3>Рабби Шнеур Залман из Ляд (Алтер Ребе)</h3>
+                    <div class="hebrew-name">רבי שניאור זлמן מלאדי</div>
+                    <div class="years">5505 – 5573 (1745 – 1812 гг.)</div>
+                    <span class="badge">Интеллектуальный хасидизм (Хабад)</span>
+                    <div class="meta-info"><strong>Учитель:</strong> Магид из Межирича</div>
+                    <div class="meta-info"><strong>Центр:</strong> Ляды (Беларусь / Литва)</div>
+                </div>
+                <div class="books-block">
+                    <strong>Ключевые книги:</strong> «Ликутей Амарим / Тания» (תניא — базовый философский трактат), «Шулхан Арух а-Рав» (שולחן ערוך הרב).
+                </div>
+            </div>
+            
+            <div class="card branch-chernobyl">
+                <div>
+                    <h3>Рабби Менахем Нахум из Чернобыля</h3>
+                    <div class="hebrew-name">רבי מנחם נחום מטשרנוביל</div>
+                    <div class="years">5490 – 5558 (1730 – 1797 гг.)</div>
+                    <span class="badge">Украинская (Чернобыльская) школа</span>
+                    <div class="meta-info"><strong>Учитель:</strong> Бешт и Магид из Межирича</div>
+                    <div class="meta-info"><strong>Центр:</strong> Чернобыль (Украина)</div>
+                </div>
+                <div class="books-block">
+                    <strong>Ключевые книги:</strong> «Меор Эйнаим» (מאור עיניים — классический мистический комментарий на Тору и Талмуд).
+                </div>
+            </div>
+            
